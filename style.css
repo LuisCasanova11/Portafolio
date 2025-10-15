@@ -330,7 +330,6 @@ body {
     border-right: 1px solid rgba(248, 211, 218, 0.5);
     padding: 80px 60px 80px;
     overflow: hidden;
-    min-height: 100vh;
     z-index: 2;
 }
 
@@ -1255,10 +1254,17 @@ body {
 
 .videos-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto 60px;
+}
+
+/* Forzamos 4 columnas en pantallas más grandes para evitar que crezcan demasiado */
+@media (min-width: 1200px) {
+    .videos-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 .video-card {
@@ -1280,12 +1286,13 @@ body {
     width: 100%;
     aspect-ratio: 4 / 5; /* Proporción ideal para reels/stories */
     overflow: hidden;
+    background-color: #000; /* Fondo negro para un look más profesional */
 }
 
 .video-thumbnail img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* Cambiamos 'cover' por 'contain' para que la imagen se vea completa */
 }
 
 .play-overlay {
@@ -1370,7 +1377,12 @@ body {
     position: relative;
     width: 90%;
     max-width: 800px;
-    transform: scale(0.9); /* Estado inicial para la animación de zoom */
+    padding: 5px; /* Aumentamos el grosor del borde */
+    border-radius: 12px; /* Redondeamos el contenedor del borde */
+    background: linear-gradient(90deg, var(--accent-soft), var(--accent-hot), var(--accent-soft)); /* Gradiente más vibrante */
+    background-size: 200% 200%; /* Hacemos el gradiente más compacto para un efecto más rápido */
+    animation: glitter-border 4s ease infinite; /* Aceleramos la animación */
+    transform: scale(0.9);
     opacity: 0;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1380,12 +1392,20 @@ body {
     opacity: 1;
 }
 
+.video-wrapper {
+    background-color: var(--bg-light); /* Color de fondo de la app */
+    border-radius: 8px; /* Redondeamos el contenedor del video */
+    overflow: hidden; /* Nos aseguramos que el video no se salga */
+    display: flex; /* Para que el video se centre si es necesario */
+}
+
 .video-modal-content video {
     width: 100%;
     height: auto;
     max-width: 90vw; /* El video no será más ancho que el 90% de la ventana */
     max-height: 90vh; /* El video no será más alto que el 90% de la ventana */
-    border-radius: 8px;
+    display: block; /* Aseguramos que el video se comporte como un bloque */
+    /* Quitamos el border-radius y la sombra de aquí, se manejan en el wrapper */
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* Sombra para destacar el video */
 }
 
@@ -1407,6 +1427,14 @@ body {
 .close-modal:hover {
     color: var(--accent-hot);
 }
+
+/* Animación para el efecto glitter del borde */
+@keyframes glitter-border {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 
 /* ===========================
            MODERN ANIMATIONS
