@@ -242,10 +242,9 @@ body {
 }
 
 .profile-actions {
-    display: none; /* Oculto por defecto en desktop */
+    display: none;
     flex-direction: column;
-    gap: 1rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: 100%;
     align-items: center;
 }
@@ -254,22 +253,18 @@ body {
     width: 80%;
 }
 
+/* Estilo específico para el botón secundario en móvil (fondo claro) */
+.profile-actions .btn-secondary {
+    color: var(--accent-hot);
+    border-color: var(--accent-hot);
+}
+
 .testimonial {
     text-align: left;
     max-width: 250px;
     font-style: italic;
     position: relative;
     padding-left: 20px;
-}
-
-.testimonial::before {
-    content: '“';
-    position: absolute;
-    left: -15px;
-    top: -20px;
-    font-size: 4rem;
-    color: var(--accent-hot);
-    opacity: 0.5;
 }
 
 .experience {
