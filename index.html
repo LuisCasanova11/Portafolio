@@ -21,7 +21,13 @@
                 <li><a href="#proyectos"><i class="fas fa-project-diagram"></i> Proyectos</a></li>
                 <li><a href="#videos"><i class="fab fa-youtube"></i> Videos</a></li>
             </ul>
-            <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+            <div class="nav-actions">
+                <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+            </div>
         </nav>
     </header>
 
@@ -471,7 +477,7 @@ y den vida a las marcas en redes sociales."</p>
         <div class="video-modal-content">
             <span class="close-modal">&times;</span>
             <div class="video-wrapper">
-                <video id="modal-video-player" src="" controls></video>
+                <video id="modal-video-player" src="" controls playsinline></video>
             </div>
         </div>
     </div>

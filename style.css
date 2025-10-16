@@ -1,22 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 :root {
+    /* Light Mode Palette (Default) */
     --accent-hot: #f06c88;
-    /* TU COLOR BASE. Para botones principales y llamadas a la acción (CTA). */
     --accent-soft: #F4A7B9;
-    /* Un rosa más suave para enlaces, títulos o el estado :hover. */
     --text-dark: #73434F;
-    /* TEXTO PRINCIPAL. Un color "frambuesa oscuro" para máxima legibilidad. */
     --text-secondary: #B58390;
-    /* Texto secundario. Menos importante pero aún legible. */
     --bg-element: #FDE8EC;
-    /* Fondo para elementos como la barra de navegación o tarjetas. */
     --bg-light: #FFF9FA;
-    /* Fondo general de la página, un rosa extremadamente pálido. */
     --border-color: #F8D3DA;
-    /* Borde sutil para separar elementos. */
+    --bg-card: #FFFFFF;
+    --bg-section-alt: #F8F9FA;
+    --shadow-color: rgba(181, 131, 144, 0.1);
+    --bg-glass: #fde8ec80;
+    --border-glass: #f8d3da80;
+
     --header-h: 70px;
-    /* Altura de la barra de navegación para cálculos móviles */
+}
+
+body.dark-mode {
+    /* Dark Mode Palette */
+    --accent-hot: #f06c88;
+    --accent-soft: #F4A7B9;
+    --text-dark: #FDE8EC;
+    /* Texto principal claro */
+    --text-secondary: #B58390;
+    /* Texto secundario se mantiene por contraste */
+    --bg-element: #3a2e34;
+    /* Elementos de UI oscuros */
+    --bg-light: #2d2329;
+    /* Fondo general oscuro */
+    --border-color: #5a454c;
+    --bg-card: #35292f;
+    --bg-section-alt: #281e23;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --bg-glass: rgba(45, 35, 41, 0.5);
+    --border-glass: rgba(90, 69, 76, 0.5);
 }
 
 * {
@@ -42,8 +61,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 5%;
-    background-color: #fde8ec80;
-    border: 1px solid #f8d3da80;
+    background-color: var(--bg-glass);
+    border: 1px solid var(--border-glass);
     backdrop-filter: blur(10px);
     border-radius: 50px;
     margin: 20px auto;
@@ -53,8 +72,9 @@ body {
     top: 20px;
     left: 50%; /* Centramos horizontalmente */
     transform: translateX(-50%); /* Ajuste fino para el centrado */
-    box-shadow: 0 5px 20px rgba(181, 131, 144, 0.1);
+    box-shadow: 0 5px 20px var(--shadow-color);
     z-index: 100;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .logo {
@@ -85,6 +105,12 @@ body {
     align-items: center;
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el botón de modo oscuro y el de menú */
+}
+
 .nav-links a i {
     margin-right: 8px;
 }
@@ -101,6 +127,33 @@ body {
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
+    color: var(--text-dark);
+}
+
+.dark-mode-toggle {
+    background: none;
+    border: none;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 10px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dark-mode-toggle .fa-sun {
+    display: none;
+}
+
+body.dark-mode .dark-mode-toggle .fa-sun {
+    display: block;
+    /* Color sol */
+}
+
+body.dark-mode .dark-mode-toggle .fa-moon {
+    display: none;
 }
 
 .hero {
@@ -285,7 +338,7 @@ body {
 
 /* --- Responsive Design --- */
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .nav-links {
         display: none;
         flex-direction: column;
@@ -310,6 +363,10 @@ body {
 
     .menu-toggle {
         display: block;
+    }
+    .dark-mode-toggle { 
+        margin-left: 0; 
+        order: -1; /* Mueve el botón de modo oscuro antes del menú hamburguesa */
     }
 
     .hero-content {
@@ -387,13 +444,13 @@ body {
 .services-section {
     position: relative;
     margin-top: -80px; /* Sube la sección para superponerla a la anterior */
-    background: rgba(255, 255, 255, 0.5); /* Fondo blanco semitransparente para un look más limpio */
+    background: var(--bg-glass);
     backdrop-filter: blur(20px); /* Aumentamos el desenfoque para un efecto más premium */
     -webkit-backdrop-filter: blur(20px); /* Para compatibilidad con Safari */
     border-radius: 50px 50px 0 0;
-    border-top: 1px solid rgba(248, 211, 218, 0.5); /* Borde sutil para el cristal */
-    border-left: 1px solid rgba(248, 211, 218, 0.5);
-    border-right: 1px solid rgba(248, 211, 218, 0.5);
+    border-top: 1px solid var(--border-glass);
+    border-left: 1px solid var(--border-glass);
+    border-right: 1px solid var(--border-glass);
     padding: 80px 60px 80px;
     overflow: hidden;
     z-index: 2;
@@ -502,7 +559,7 @@ body {
            INDIVIDUAL SERVICE CARD
            =========================== */
 .service-card {
-    background: #fde8ec80; /* Usamos el color de elementos con transparencia */
+    background: var(--bg-glass);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
@@ -551,7 +608,7 @@ body {
     height: 94%;
     top: 3%;
     left: 3%;
-    background: linear-gradient(135deg, #e0e0e0 0%, #d0d0d0 100%);
+    background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
     border-radius: 22px;
     transform: rotate(-3deg);
     opacity: 0.5;
@@ -567,7 +624,7 @@ body {
     height: 97%;
     top: 1.5%;
     left: 1.5%;
-    background: linear-gradient(135deg, #f0f0f0 0%, #e5e5e5 100%);
+    background: linear-gradient(135deg, #6b6b6b 0%, #5e5e5e 100%);
     border-radius: 24px;
     transform: rotate(1.5deg);
     opacity: 0.7;
@@ -580,7 +637,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    background: linear-gradient(135deg, #333 0%, #2c2c2c 100%);
     border-radius: 25px;
     padding: 25px;
     display: flex;
@@ -596,7 +653,7 @@ body {
 .phone-mockup {
     width: 28%;
     height: 85%;
-    background: white;
+    background: var(--bg-card);
     border-radius: 20px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     position: relative;
@@ -625,7 +682,7 @@ body {
 .ui-element {
     width: 100%;
     height: 30%;
-    background: linear-gradient(135deg, #f0e6d8 0%, #e8dcc8 100%);
+    background: linear-gradient(135deg, #555 0%, #484848 100%);
     border-radius: 12px;
     margin-bottom: 10px;
     position: relative;
@@ -646,7 +703,7 @@ body {
 .tablet-mockup {
     width: 40%;
     height: 95%;
-    background: white;
+    background: var(--bg-card);
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     position: relative;
@@ -679,7 +736,7 @@ body {
 
 /* Center card special styling */
 .service-card:nth-child(2) .mockup-container {
-    background: white;
+    background: var(--bg-card);
     flex-direction: column;
     padding: 30px;
 }
@@ -687,7 +744,7 @@ body {
 .service-card:nth-child(2) .phone-mockup {
     width: 85%;
     height: 90%;
-    background: white;
+    background: var(--bg-card);
     border: 2px solid #f0f0f0;
 }
 
@@ -884,7 +941,7 @@ body {
            WORK EXPERIENCE SECTION
            =========================== */
 .experience-section {
-    background-color: #FFFFFF;
+    background-color: var(--bg-card);
     padding: 100px 20px;
     font-family: 'Poppins', sans-serif;
 }
@@ -961,7 +1018,7 @@ body {
 .timeline-node {
     width: 20px;
     height: 20px;
-    background-color: #FFFFFF;
+    background-color: var(--bg-card);
     border: 2px solid var(--accent-hot);
     border-radius: 50%;
     transition: transform 0.3s ease;
@@ -1043,7 +1100,7 @@ body {
            EDUCATION & COURSES SECTION
            =========================== */
 .education-section {
-    background-color: #F8F9FA; /* Off-white background */
+    background-color: var(--bg-section-alt);
     padding: 100px 20px;
     font-family: 'Poppins', sans-serif;
 }
@@ -1069,17 +1126,17 @@ body {
 }
 
 .education-card {
-    background-color: #FFFFFF;
+    background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 30px;
-    box-shadow: 0 4px 15px rgba(181, 131, 144, 0.05);
+    box-shadow: 0 4px 15px var(--shadow-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .education-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(181, 131, 144, 0.12);
+    box-shadow: 0 12px 25px var(--shadow-color);
 }
 
 .card-icon {
@@ -1149,7 +1206,7 @@ body {
 /* ===========================
            SOFTWARE STRIP SECTION
            =========================== */
-.software-strip {
+.software-strip {    
     background-color: var(--text-dark); /* Usando el color oscuro de la paleta */
     padding: 40px 0;
     overflow: hidden;
@@ -1165,7 +1222,7 @@ body {
 .logo-item {
     display: inline-flex; /* Usamos inline-flex para los elementos individuales */
     align-items: center;
-    color: var(--bg-light); /* Usando el color claro de la paleta */
+    color: var(--bg-element);
     font-size: 1.5rem;
     font-weight: 600;
     margin: 0 40px; /* Espacio entre logos */
@@ -1175,6 +1232,10 @@ body {
     margin-right: 15px;
     font-size: 2rem;
 }
+body.dark-mode .software-strip {
+    background-color: #1e171b; /* Un poco más oscuro que el fondo general */
+}
+
 
 /* Animación de desplazamiento */
 @keyframes marquee {
@@ -1200,7 +1261,7 @@ body {
            PROYECTOS SECTION
            =========================== */
 .proyectos-section {
-    background-color: #FFFFFF;
+    background-color: var(--bg-card);
     padding: 100px 20px;
 }
 
@@ -1225,16 +1286,16 @@ body {
 }
 
 .proyecto-card {
-    background-color: #FFFFFF;
+    background-color: var(--bg-card);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(181, 131, 144, 0.08);
+    box-shadow: 0 4px 15px var(--shadow-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .proyecto-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(181, 131, 144, 0.15);
+    box-shadow: 0 15px 30px var(--shadow-color);
 }
 
 .proyecto-link {
@@ -1302,7 +1363,7 @@ body {
            VIDEOS SECTION
            =========================== */
 .videos-section {
-    background-color: #F8F9FA; /* Off-white background */
+    background-color: var(--bg-section-alt);
     padding: 100px 20px;
 }
 
@@ -1334,17 +1395,17 @@ body {
 }
 
 .video-card {
-    background-color: #FFFFFF;
+    background-color: var(--bg-card);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(181, 131, 144, 0.08);
+    box-shadow: 0 4px 15px var(--shadow-color);
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .video-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(181, 131, 144, 0.15);
+    box-shadow: 0 15px 30px var(--shadow-color);
 }
 
 .video-thumbnail {

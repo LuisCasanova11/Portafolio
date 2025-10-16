@@ -1,5 +1,6 @@
 const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
+const darkModeToggle = document.getElementById("dark-mode-toggle");
 const allNavLinks = document.querySelectorAll(".nav-links a");
 const sections = document.querySelectorAll("main, section[id]");
 
@@ -45,6 +46,23 @@ const navHighlighter = () => {
 };
 
 window.addEventListener('scroll', navHighlighter);
+
+// --- Lógica del Modo Oscuro ---
+darkModeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    // Guardar preferencia en localStorage
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
+    } else {
+        localStorage.setItem("theme", "light");
+    }
+});
+
+// Comprobar preferencia al cargar la página
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+}
 
 // --- Lógica de Paginación y Modal de Video ---
 
