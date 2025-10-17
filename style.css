@@ -105,6 +105,53 @@ body {
     align-items: center;
 }
 
+.nav-links li.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle .dropdown-arrow {
+    font-size: 0.7rem;
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 110%; /* Posición justo debajo del botón */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg-element);
+    border-radius: 10px;
+    list-style: none;
+    padding: 10px 0;
+    width: 200px;
+    box-shadow: 0 8px 25px var(--shadow-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, top 0.3s ease, visibility 0.3s;
+    z-index: 110; /* Asegura que esté sobre otros elementos */
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    top: 100%;
+}
+
+.dropdown-menu li {
+    margin: 0;
+    width: 100%;
+}
+
+.dropdown-menu a {
+    padding: 12px 20px;
+    border-radius: 0; /* Quitamos el borde redondeado para un look de menú */
+}
+
 .nav-actions {
     display: flex;
     align-items: center;
@@ -353,6 +400,24 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 
     .nav-links.active {
         display: flex;
+    }
+
+    /* Estilos del dropdown para móvil */
+    .dropdown-toggle .dropdown-arrow {
+        display: none; /* Ocultamos la flecha en el menú hamburguesa */
+    }
+
+    .dropdown-menu {
+        position: static; /* El menú ya no es absoluto */
+        transform: none;
+        background-color: transparent;
+        box-shadow: none;
+        width: 100%;
+        padding: 0;
+        margin-top: 5px;
+        display: block; /* Hacemos que sea visible por defecto dentro del menú */
+        opacity: 1;
+        visibility: visible;
     }
 
     .nav-links li {

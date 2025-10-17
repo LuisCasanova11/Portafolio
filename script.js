@@ -43,6 +43,15 @@ const navHighlighter = () => {
             link.classList.add('active');
         }
     });
+    
+    const portfolioSections = ['proyectos', 'cuentas', 'videos'];
+    const portfolioToggle = document.querySelector('.dropdown-toggle');
+    
+    // Lógica especial para el menú desplegable "Portafolio"
+    if (portfolioSections.includes(currentSectionId)) {
+        portfolioToggle.classList.add('active');
+    }
+    // No necesitamos un 'else' para quitar la clase, porque el bucle anterior ya lo hace.
 };
 
 window.addEventListener('scroll', navHighlighter);
