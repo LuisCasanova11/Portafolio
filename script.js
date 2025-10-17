@@ -117,6 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Configura la paginación para Proyectos
     setupPagination('.proyectos-grid', '.proyecto-card', '.proyectos-pagination', 3);
 
+    // Configura la paginación para Cuentas (ej: 4 por página)
+    setupPagination('.cuentas-grid', '.cuenta-card', '.cuentas-pagination', 4);
+
     // Configura la paginación para Videos
     setupPagination('.videos-grid', '.video-card', '.videos-pagination', 2);
 

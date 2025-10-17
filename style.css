@@ -1125,18 +1125,160 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     margin: 0 auto;
 }
 
-.education-card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* ==================================================
+   GLOWING CARD EFFECT FOR EDUCATION SECTION (Visible en ambos modos)
+   ================================================== */
+
+.education-card-poda {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 250px;
+    padding: 4px; /* Pequeño espacio para que el borde no se corte */
 }
 
-.education-card:hover {
+/* Capa principal del contenido de la tarjeta */
+.poda-main-content {
+    /* FORZAMOS UN FONDO OSCURO EN AMBOS MODOS para que el brillo destaque */
+    background-color: #35292f; 
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+/* FORZAMOS TEXTO CLARO EN AMBOS MODOS para que sea legible sobre el fondo oscuro */
+.education-card-poda .card-icon {
+    font-size: 2rem;
+    color: var(--accent-hot);
+    margin-bottom: 15px;
+}
+.education-card-poda .education-institution,
+.education-card-poda .education-degree {
+    color: #FDE8EC; /* Color de texto principal claro */
+}
+.education-card-poda .education-date {
+    color: var(--text-secondary); /* Este color de acento funciona bien */
+}
+
+/* Capas de efectos de brillo y borde (ahora siempre visibles) */
+.white,
+.border,
+.darkBorderBg,
+.glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 12px;
+    filter: blur(3px);
+    opacity: 1; /* Aseguramos que sea visible por defecto */
+}
+
+.education-card-poda:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 25px var(--shadow-color);
+    transition: transform 0.3s ease;
+}
+
+.white {
+    border-radius: 10px;
+    filter: blur(2px);
+}
+
+.white::before {
+    content: "";
+    z-index: -2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(83deg);
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    filter: brightness(1.4);
+    background-image: conic-gradient(transparent 0%, var(--accent-soft), transparent 8%, transparent 50%, var(--accent-hot), transparent 58%);
+    transition: all 2s;
+}
+
+.border {
+    border-radius: 11px;
+    filter: blur(0.5px);
+}
+
+.border::before {
+    content: "";
+    z-index: -2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(70deg);
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    filter: brightness(1.3);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-image: conic-gradient(#35292f, var(--accent-soft) 5%, #35292f 14%, #35292f 50%, var(--accent-hot) 60%, #35292f 64%);
+    transition: all 2s;
+}
+
+.darkBorderBg::before {
+    content: "";
+    z-index: -2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(82deg);
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-image: conic-gradient(transparent, var(--accent-soft), transparent 10%, transparent 50%, var(--accent-hot), transparent 60%);
+    transition: all 2s;
+}
+
+.glow {
+    overflow: hidden;
+    filter: blur(25px);
+    opacity: 0.6;
+}
+
+.glow:before {
+    content: "";
+    z-index: -2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(60deg);
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-image: conic-gradient(transparent, var(--accent-soft) 5%, transparent 38%, transparent 50%, var(--accent-hot) 60%, transparent 87%);
+    transition: all 2s;
+}
+
+/* Animaciones en Hover (ahora funcionan en ambos modos) */
+.education-card-poda:hover > .darkBorderBg::before {
+    transform: translate(-50%, -50%) rotate(-98deg);
+}
+
+.education-card-poda:hover > .glow::before {
+    transform: translate(-50%, -50%) rotate(-120deg);
+}
+
+.education-card-poda:hover > .white::before {
+    transform: translate(-50%, -50%) rotate(-97deg);
+}
+
+.education-card-poda:hover > .border::before {
+    transform: translate(-50%, -50%) rotate(-110deg);
 }
 
 .card-icon {
@@ -1356,6 +1498,100 @@ body.dark-mode .software-strip {
 
     .proyectos-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ===========================
+           CUENTAS SECTION
+           =========================== */
+.cuentas-section {
+    background-color: var(--bg-section-alt); /* Fondo alternativo para variar */
+    padding: 100px 20px;
+}
+
+.cuentas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajuste para tarjetas un poco más pequeñas */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 60px;
+}
+
+.cuenta-card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cuenta-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px var(--shadow-color);
+}
+
+.cuenta-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.cuenta-imagen {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Hacemos la imagen cuadrada, ideal para logos */
+    overflow: hidden;
+}
+
+.cuenta-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.cuenta-card:hover .cuenta-imagen img {
+    transform: scale(1.05);
+}
+
+.cuenta-info {
+    padding: 20px;
+    text-align: center; /* Centramos el texto para un look más de "perfil" */
+}
+
+.cuenta-titulo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* Espacio entre el ícono y el texto */
+    margin-bottom: 5px;
+}
+
+.cuenta-titulo-wrapper i {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+}
+
+.cuenta-titulo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.cuenta-categoria {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.cuentas-pagination {
+    margin-top: 40px;
+}
+
+/* ===========================
+           CUENTAS RESPONSIVE
+           =========================== */
+@media (max-width: 768px) {
+    .cuentas-section {
+        padding: 80px 20px;
     }
 }
 
