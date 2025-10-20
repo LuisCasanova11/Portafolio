@@ -1011,16 +1011,43 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     font-family: 'Poppins', sans-serif;
 }
 
-.experience-title {
+/* ===========================
+           GENERIC SECTION TITLE STYLE
+           =========================== */
+.experience-title,
+.education-title,
+.proyectos-title,
+.videos-title {
     font-size: 3rem;
     font-weight: 700;
     text-align: center;
     margin-bottom: 80px;
     color: var(--text-dark);
+    position: relative; /* Necesario para el pseudo-elemento */
+    padding-bottom: 20px; /* Espacio para la línea decorativa */
 }
 
-.experience-title span {
+.experience-title span,
+.education-title span,
+.proyectos-title span,
+.videos-title span {
     color: var(--accent-hot);
+}
+
+/* Línea decorativa para los títulos */
+.experience-title::after,
+.education-title::after,
+.proyectos-title::after,
+.videos-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px; /* Ancho de la línea */
+    height: 4px; /* Grosor de la línea */
+    background-color: var(--accent-hot);
+    border-radius: 2px;
 }
 
 .timeline {
@@ -1169,19 +1196,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     padding: 100px 20px;
     font-family: 'Poppins', sans-serif;
 }
-
-.education-title {
-    font-size: 3rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 80px;
-    color: var(--text-dark);
-}
-
-.education-title span {
-    color: var(--accent-hot);
-}
-
 .education-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1426,6 +1440,10 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     animation: marquee 20s linear infinite;
 }
 
+.software-strip:hover .logos-container {
+    animation-play-state: paused; /* Pausa la animación en hover */
+}
+
 .logo-item {
     display: inline-flex; /* Usamos inline-flex para los elementos individuales */
     align-items: center;
@@ -1470,18 +1488,6 @@ body.dark-mode .software-strip {
 .proyectos-section {
     background-color: var(--bg-card);
     padding: 100px 20px;
-}
-
-.proyectos-title {
-    font-size: 3rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 80px;
-    color: var(--text-dark);
-}
-
-.proyectos-title span {
-    color: var(--accent-hot);
 }
 
 .proyectos-grid {
@@ -1583,27 +1589,28 @@ body.dark-mode .software-strip {
 }
 
 .cuenta-card {
-    background-color: var(--bg-card);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 15px var(--shadow-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Necesario para el posicionamiento del overlay */
 }
 
 .cuenta-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px var(--shadow-color);
+    box-shadow: 0 20px 40px var(--shadow-color);
 }
 
 .cuenta-link {
     text-decoration: none;
     color: inherit;
     display: block;
+    position: relative; /* Contenedor para la imagen y el overlay */
 }
 
 .cuenta-imagen {
     width: 100%;
-    aspect-ratio: 1 / 1; /* Hacemos la imagen cuadrada, ideal para logos */
+    aspect-ratio: 1 / 1;
     overflow: hidden;
 }
 
@@ -1611,40 +1618,65 @@ body.dark-mode .software-strip {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
-}
-
-.cuenta-card:hover .cuenta-imagen img {
-    transform: scale(1.05);
+    transition: transform 0.4s ease, filter 0.4s ease;
 }
 
 .cuenta-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 20px;
-    text-align: center; /* Centramos el texto para un look más de "perfil" */
+    text-align: center;
+    transform: translateY(100%); /* Oculto por defecto */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--text-dark);
+    border-top: 1px solid var(--border-glass);
 }
 
-.cuenta-titulo-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px; /* Espacio entre el ícono y el texto */
-    margin-bottom: 5px;
+/* En modo oscuro, el texto del overlay debe ser claro */
+body.dark-mode .cuenta-info {
+    color: var(--text-dark);
 }
 
-.cuenta-titulo-wrapper i {
-    color: var(--text-secondary);
-    font-size: 1.2rem;
+.cuenta-card:hover .cuenta-info {
+    transform: translateY(0);
+}
+
+.cuenta-card:hover .cuenta-imagen img {
+    transform: scale(1.1);
+    filter: blur(2px) brightness(0.8);
 }
 
 .cuenta-titulo {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--text-dark);
+    margin-bottom: 8px;
 }
 
 .cuenta-categoria {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.cuenta-ver-perfil {
+    display: inline-block;
+    background-color: var(--accent-hot);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.cuenta-ver-perfil:hover {
+    background-color: var(--text-dark);
 }
 
 .cuentas-pagination {
@@ -1658,6 +1690,30 @@ body.dark-mode .software-strip {
     .cuentas-section {
         padding: 80px 20px;
     }
+
+    /* Ajustes para tarjetas de Cuentas en móvil (sin hover) */
+    .cuenta-card {
+        display: flex; /* Usamos flexbox para un mejor control del contenido interno */
+    }
+
+    .cuenta-info {
+        position: absolute; /* Superponemos la info sobre la imagen */
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: translateY(0); /* La hacemos visible por defecto */
+        background: var(--bg-glass); /* Re-aplicamos el efecto cristal */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid var(--border-glass);
+        padding: 15px; /* Ajustamos el padding para móvil */
+    }
+
+    /* Desactivamos los efectos de hover en la imagen en móvil */
+    .cuenta-card:hover .cuenta-imagen img {
+        transform: scale(1.05); /* Mantenemos un sutil zoom para dar feedback al tocar */
+        filter: none;
+    }
 }
 
 /* ===========================
@@ -1666,18 +1722,6 @@ body.dark-mode .software-strip {
 .videos-section {
     background-color: var(--bg-section-alt);
     padding: 100px 20px;
-}
-
-.videos-title {
-    font-size: 3rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 80px;
-    color: var(--text-dark);
-}
-
-.videos-title span {
-    color: var(--accent-hot);
 }
 
 .videos-grid {
@@ -1696,12 +1740,12 @@ body.dark-mode .software-strip {
 }
 
 .video-card {
-    background-color: var(--bg-card);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 15px var(--shadow-color);
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Necesario para la superposición */
 }
 
 .video-card:hover {
@@ -1714,57 +1758,59 @@ body.dark-mode .software-strip {
     width: 100%;
     aspect-ratio: 4 / 5; /* Proporción ideal para reels/stories */
     overflow: hidden;
-    background-color: #000; /* Fondo negro para un look más profesional */
 }
 
 .video-thumbnail img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Cambiamos 'cover' por 'contain' para que la imagen se vea completa */
+    object-fit: cover; /* 'cover' llena el espacio y se ve más profesional */
+    transition: transform 0.4s ease;
 }
 
-.play-overlay {
+.video-card:hover .video-thumbnail img {
+    transform: scale(1.1);
+}
+
+.video-info {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    color: white;
-    opacity: 1; /* Hacemos el overlay visible por defecto */
-    transition: background-color 0.3s ease; /* Cambiamos la transición */
-}
-
-.video-card:hover .play-overlay {
-    background-color: rgba(0, 0, 0, 0.5); /* Oscurecemos un poco en hover */
-}
-
-.video-info {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Alinea el contenido en la parte inferior */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    color: #fff; /* Todo el texto dentro será blanco */
+}
+
+.video-card:hover .video-info {
+    opacity: 1;
 }
 
 .video-titulo {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: #fff;
     margin-bottom: 10px;
+    transform: translateY(20px);
+    transition: transform 0.4s 0.1s ease;
 }
 
 .video-social-link {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--accent-hot);
+    color: #fff;
+    background-color: var(--accent-hot);
+    padding: 6px 12px;
+    border-radius: 20px;
     text-decoration: none;
-    display: inline-block;
-    transition: opacity 0.3s ease;
-}
-
-.video-social-link:hover {
-    opacity: 0.8;
+    transition: background-color 0.3s ease, transform 0.4s 0.2s ease;
+    transform: translateY(20px);
+    align-self: flex-start; /* Para que no ocupe todo el ancho */
 }
 
 .video-social-link i {
@@ -1773,6 +1819,30 @@ body.dark-mode .software-strip {
 
 .videos-pagination {
     margin-top: 40px;
+}
+
+/* Animaciones de entrada para el texto en hover */
+.video-card:hover .video-titulo,
+.video-card:hover .video-social-link {
+    transform: translateY(0);
+}
+
+/* El botón de play ahora está dentro de .video-info */
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    font-size: 3rem;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none; /* Para que no interfiera con el click en la tarjeta */
+}
+
+.video-card:hover .play-overlay {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 /* ===========================
@@ -1882,15 +1952,47 @@ body.dark-mode .software-strip {
            FOOTER SECTION
            =========================== */
 .site-footer {
-    background-color: var(--bg-element);
+    background: linear-gradient(180deg, var(--bg-element) 0%, var(--bg-card) 100%);
     color: var(--text-dark);
-    padding: 80px 20px 30px;
-    text-align: center;
-    border-top: 1px solid var(--border-color);
+    padding: 120px 20px 30px;
+    position: relative;
+}
+
+.footer-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: translateY(-1px); /* Evita gaps */
+}
+
+.footer-wave svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 80px; /* Altura de la ola */
+}
+
+.footer-wave .shape-fill {
+    fill: var(--bg-element);
 }
 
 .footer-container {
-    max-width: 800px;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-content {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.footer-about {
+    max-width: 600px; /* Limitamos el ancho del texto para mejor legibilidad */
     margin: 0 auto;
 }
 
@@ -1898,29 +2000,30 @@ body.dark-mode .software-strip {
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--accent-hot);
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .footer-text {
     font-size: 1.1rem;
     color: var(--text-secondary);
     margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .footer-socials {
-    margin-bottom: 50px;
+    text-align: center;
 }
 
 .footer-socials a {
     color: var(--text-dark);
-    font-size: 1.8rem;
-    margin: 0 15px;
+    font-size: 2rem; /* Iconos un poco más grandes */
+    margin: 0 20px; /* Espaciado uniforme */
     text-decoration: none;
     transition: color 0.3s ease, transform 0.3s ease;
     display: inline-block;
+}
+
+.footer-socials a:last-child {
+    margin-right: 0;
 }
 
 .footer-socials a:hover {
@@ -1933,9 +2036,11 @@ body.dark-mode .software-strip {
     padding-top: 30px;
     font-size: 0.9rem;
     color: var(--text-secondary);
+    text-align: center;
 }
 
 @media (max-width: 768px) {
+    /* El diseño ya es centrado, así que los ajustes son mínimos */
     .footer-title { font-size: 2rem; }
     .footer-text { font-size: 1rem; }
     .footer-socials a { font-size: 1.6rem; margin: 0 12px; }
