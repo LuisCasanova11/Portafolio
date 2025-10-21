@@ -108,6 +108,22 @@ document.addEventListener('DOMContentLoaded', () => {
     setupPagination('.cuentas-grid', '.cuenta-card', '.cuentas-pagination', 4);
     setupPagination('.videos-grid', '.video-card', '.videos-pagination', 2);
 
+    // --- Lógica del botón "Ver más" para Cursos ---
+    const toggleCoursesBtn = document.getElementById('toggle-courses-btn');
+    const educationGrid = document.querySelector('.education-grid');
+
+    if (toggleCoursesBtn && educationGrid) {
+        toggleCoursesBtn.addEventListener('click', () => {
+            educationGrid.classList.toggle('show-all');
+            if (educationGrid.classList.contains('show-all')) {
+                toggleCoursesBtn.textContent = 'Ver menos';
+            } else {
+                toggleCoursesBtn.textContent = 'Ver más';
+            }
+        });
+    }
+
+
     const videoModal = document.getElementById('video-modal');
     const modalVideoPlayer = document.getElementById('modal-video-player');
     const closeModal = document.querySelector('.close-modal');

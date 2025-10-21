@@ -1125,157 +1125,42 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     margin: 0 auto;
 }
 
-.education-card-poda {
-    position: relative;
+.education-grid .education-card:nth-child(n + 3) {
+    display: none;
+}
+
+.education-grid.show-all .education-card {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 250px;
-    padding: 4px;
 }
 
-.poda-main-content {
-    background-color: #35292f;
-    border-radius: 10px;
-    width: 100%;
-    height: 100%;
+.education-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
     padding: 30px;
-    position: relative;
-    z-index: 2;
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.education-card-poda .card-icon {
-    font-size: 2rem;
-    color: var(--accent-hot);
-    margin-bottom: 15px;
-}
-.education-card-poda .education-institution,
-.education-card-poda .education-degree {
-    color: #FDE8EC;
-}
-.education-card-poda .education-date {
-    color: var(--text-secondary);
-}
-
-.white,
-.border,
-.darkBorderBg,
-.glow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 1;
-    border-radius: 12px;
-    filter: blur(3px);
-    opacity: 1;
-}
-
-.education-card-poda:hover {
+.education-card:hover {
     transform: translateY(-8px);
-    transition: transform 0.3s ease;
-}
-
-.white {
-    border-radius: 10px;
-    filter: blur(2px);
-}
-
-.white::before {
-    content: "";
-    z-index: -2;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(83deg);
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    filter: brightness(1.4);
-    background-image: conic-gradient(transparent 0%, var(--accent-soft), transparent 8%, transparent 50%, var(--accent-hot), transparent 58%);
-    transition: all 2s;
-}
-
-.border {
-    border-radius: 11px;
-    filter: blur(0.5px);
-}
-
-.border::before {
-    content: "";
-    z-index: -2;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(70deg);
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    filter: brightness(1.3);
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-image: conic-gradient(#35292f, var(--accent-soft) 5%, #35292f 14%, #35292f 50%, var(--accent-hot) 60%, #35292f 64%);
-    transition: all 2s;
-}
-
-.darkBorderBg::before {
-    content: "";
-    z-index: -2;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(82deg);
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-image: conic-gradient(transparent, var(--accent-soft), transparent 10%, transparent 50%, var(--accent-hot), transparent 60%);
-    transition: all 2s;
-}
-
-.glow {
-    overflow: hidden;
-    filter: blur(25px);
-    opacity: 0.6;
-}
-
-.glow:before {
-    content: "";
-    z-index: -2;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(60deg);
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-image: conic-gradient(transparent, var(--accent-soft) 5%, transparent 38%, transparent 50%, var(--accent-hot) 60%, transparent 87%);
-    transition: all 2s;
-}
-
-.education-card-poda:hover > .darkBorderBg::before {
-    transform: translate(-50%, -50%) rotate(-98deg);
-}
-
-.education-card-poda:hover > .glow::before {
-    transform: translate(-50%, -50%) rotate(-120deg);
-}
-
-.education-card-poda:hover > .white::before {
-    transform: translate(-50%, -50%) rotate(-97deg);
-}
-
-.education-card-poda:hover > .border::before {
-    transform: translate(-50%, -50%) rotate(-110deg);
+    box-shadow: 0 12px 25px var(--shadow-color);
+    border-color: var(--accent-hot);
 }
 
 .card-icon {
     font-size: 2rem;
-    color: var(--accent-soft);
+    color: var(--accent-hot);
     margin-bottom: 15px;
+    background-color: var(--bg-element);
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .education-institution {
@@ -1295,27 +1180,28 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 .education-date {
     font-size: 0.9rem;
     color: var(--text-secondary);
-    margin-bottom: 15px;
 }
 
-.education-desc {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    margin-bottom: 20px;
+.see-more-container {
+    text-align: center;
+    margin-top: 40px;
 }
 
-.education-link {
-    font-size: 0.9rem;
-    font-weight: 600;
+.btn-secondary-outline {
+    background-color: transparent;
     color: var(--accent-hot);
-    text-decoration: none;
-    transition: opacity 0.3s ease;
+    border: 2px solid var(--accent-hot);
+    padding: 10px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.education-link:hover {
-    opacity: 0.8;
-    text-decoration: underline;
+.btn-secondary-outline:hover {
+    background-color: var(--accent-hot);
+    color: white;
+    transform: translateY(-3px);
 }
 
 @media (max-width: 768px) {
