@@ -1860,9 +1860,9 @@ body.dark-mode .cuenta-info {
     -webkit-backdrop-filter: blur(10px);
     align-items: center;
     justify-content: center;
-    display: flex; /* Usamos flex para centrar siempre */
-    opacity: 0; /* Oculto por defecto para la animación */
-    pointer-events: none; /* No interactuable cuando está oculto */
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
     transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1873,57 +1873,137 @@ body.dark-mode .cuenta-info {
 
 .video-modal-content {
     position: relative;
-    width: 90%;
-    max-width: 800px;
-    padding: 5px; /* Aumentamos el grosor del borde */
-    border-radius: 12px; /* Redondeamos el contenedor del borde */
-    background: linear-gradient(90deg, var(--accent-soft), var(--accent-hot), var(--accent-soft)); /* Gradiente más vibrante */
-    background-size: 200% 200%; /* Hacemos el gradiente más compacto para un efecto más rápido */
-    animation: glitter-border 4s ease infinite; /* Aceleramos la animación */
-    transform: scale(0.9);
+    width: 90vw; /* Usamos unidades de viewport para mejor adaptabilidad */
+    max-width: 900px; /* Un poco más grande en desktop */
+    max-height: 90vh;
+    background-color: #000; /* Fondo negro para inmersión */
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden; /* Clave para que el video no se salga */
+    display: flex; /* Mantenemos flex para centrar */
+    aspect-ratio: auto; /* CLAVE: Permite que el contenedor se ajuste al aspect-ratio del video */
+    transform: translateY(50px) scale(0.95);
     opacity: 0;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease, height 0.3s ease;
 }
 
 .video-modal.active .video-modal-content {
-    transform: scale(1);
+    transform: translateY(0) scale(1);
     opacity: 1;
-}
-
-.video-wrapper {
-    background-color: var(--bg-light); /* Color de fondo de la app */
-    border-radius: 8px; /* Redondeamos el contenedor del video */
-    overflow: hidden; /* Nos aseguramos que el video no se salga */
-    display: flex; /* Para que el video se centre si es necesario */
 }
 
 .video-modal-content video {
     width: 100%;
-    height: auto;
-    max-width: 90vw; /* El video no será más ancho que el 90% de la ventana */
-    max-height: 90vh; /* El video no será más alto que el 90% de la ventana */
-    display: block; /* Aseguramos que el video se comporte como un bloque */
-    /* Quitamos el border-radius y la sombra de aquí, se manejan en el wrapper */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* Sombra para destacar el video */
+    height: auto; /* El alto se ajustará automáticamente para mantener la proporción */
+    display: block;
+    border-radius: 16px; /* Para que no se salga de los bordes redondeados */
 }
 
 .close-modal {
     position: absolute;
-    top: -45px; /* Un poco más de espacio */
-    right: -15px;
+    top: 15px;
+    right: 15px;
     color: #fff;
-    font-size: 2rem;
-    font-weight: 300; /* Hacemos la 'x' más fina y elegante */
+    font-size: 1.2rem;
     cursor: pointer;
-    transition: color 0.3s ease;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.5);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
-    padding: 5px;
-    line-height: 1;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 10; /* Asegura que esté sobre el video */
 }
 
 .close-modal:hover {
+    background-color: var(--accent-hot);
+    transform: scale(1.1);
+}
+
+/* ===========================
+           CUSTOM VIDEO CONTROLS
+           =========================== */
+.video-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 800px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 10px 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 21; /* Sobre el video */
+}
+
+.video-modal-content:hover .video-controls {
+    opacity: 1;
+}
+
+.controls-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.3s ease;
+}
+
+.control-btn:hover {
     color: var(--accent-hot);
+}
+
+.time-display {
+    color: #fff;
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.progress-bar-container {
+    width: 100%;
+    padding: 5px 0 10px;
+    cursor: pointer;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+
+.progress-bar-filled {
+    width: 0;
+    height: 100%;
+    background-color: var(--accent-hot);
+    border-radius: 5px;
+    position: relative;
+    transition: width 0.1s linear;
+}
+
+.progress-bar-filled::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    border-radius: 50%;
 }
 
 /* Animación para el efecto glitter del borde */
@@ -1933,6 +2013,23 @@ body.dark-mode .cuenta-info {
     100% { background-position: 0% 50%; }
 }
 
+/* Mejoras para móvil */
+@media (max-width: 768px) {
+    .video-modal-content {
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    .close-modal {
+        top: 20px;
+        right: 20px;
+    }
+    .video-controls {
+        width: 90%;
+        bottom: 30px;
+    }
+}
 
 /* ===========================
            MODERN ANIMATIONS

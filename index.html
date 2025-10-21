@@ -553,8 +553,20 @@ y den vida a las marcas en redes sociales."</p>
     <div id="video-modal" class="video-modal">
         <div class="video-modal-content">
             <span class="close-modal">&times;</span>
-            <div class="video-wrapper">
-                <video id="modal-video-player" src="" controls playsinline></video>
+            <video id="modal-video-player" src="" playsinline></video>
+            <div class="video-controls">
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-bar-filled"></div>
+                    </div>
+                </div>
+                <div class="controls-main">
+                    <button class="control-btn play-pause-btn"><i class="fas fa-play"></i></button>
+                    <div class="time-display">
+                        <span class="current-time">0:00</span> / <span class="total-time">0:00</span>
+                    </div>
+                    <button class="control-btn volume-btn"><i class="fas fa-volume-up"></i></button>
+                </div>
             </div>
         </div>
     </div>

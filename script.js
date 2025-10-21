@@ -137,6 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalVideoPlayer = document.getElementById('modal-video-player');
     const closeModal = document.querySelector('.close-modal');
     const videoCards = document.querySelectorAll('.video-card');
+    
+    // Elementos de los controles personalizados
+    const playPauseBtn = document.querySelector('.play-pause-btn');
+    const progressBar = document.querySelector('.progress-bar');
+    const progressBarFilled = document.querySelector('.progress-bar-filled');
+    const currentTimeEl = document.querySelector('.current-time');
+    const totalTimeEl = document.querySelector('.total-time');
+    const volumeBtn = document.querySelector('.volume-btn');
 
     videoCards.forEach(card => {
         card.addEventListener('click', () => {
@@ -150,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const hideModal = () => {
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; // Reset icon
         videoModal.classList.remove('active');
         modalVideoPlayer.pause();
         modalVideoPlayer.src = ""; // Detiene la descarga del video para liberar recursos
@@ -161,6 +170,58 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === videoModal) {
             hideModal();
         }
+    });
+
+    // --- Lógica de Controles de Video Personalizados ---
+
+    // Formatear tiempo de segundos a MM:SS
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // Play/Pause
+    playPauseBtn.addEventListener('click', () => {
+        if (modalVideoPlayer.paused) {
+            modalVideoPlayer.play();
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            modalVideoPlayer.pause();
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+    });
+
+    // Actualizar barra de progreso y tiempo
+    modalVideoPlayer.addEventListener('timeupdate', () => {
+        const progress = (modalVideoPlayer.currentTime / modalVideoPlayer.duration) * 100;
+        progressBarFilled.style.width = `${progress}%`;
+        currentTimeEl.textContent = formatTime(modalVideoPlayer.currentTime);
+    });
+
+    // Actualizar tiempo total cuando el video carga
+    modalVideoPlayer.addEventListener('loadedmetadata', () => {
+        totalTimeEl.textContent = formatTime(modalVideoPlayer.duration);
+    });
+
+    // Buscar en el video al hacer clic en la barra de progreso
+    progressBar.addEventListener('click', (e) => {
+        const progressTime = (e.offsetX / progressBar.offsetWidth) * modalVideoPlayer.duration;
+        modalVideoPlayer.currentTime = progressTime;
+    });
+
+    // Silenciar/Activar sonido
+    volumeBtn.addEventListener('click', () => {
+        modalVideoPlayer.muted = !modalVideoPlayer.muted;
+        if (modalVideoPlayer.muted) {
+            volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        } else {
+            volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        }
+    });
+    
+    modalVideoPlayer.addEventListener('ended', () => {
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
     });
 });
 
