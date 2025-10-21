@@ -1219,6 +1219,11 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     }
 }
 
+.video-card {
+    border: 1px solid var(--border-color);
+}
+
+
 /* ===========================
            SOFTWARE STRIP SECTION
            =========================== */
@@ -1580,6 +1585,20 @@ body.dark-mode .dark-mode-toggle .fa-moon {
         opacity: 1;
     }
 
+}
+@media (max-width: 480px) {
+    .experience-title,
+    .education-title,
+    .proyectos-title,
+    .videos-title {
+        font-size: 2.2rem;
+        margin-bottom: 50px;
+    }
+
+    .experience-section, .education-section, .proyectos-section, .cuentas-section, .videos-section {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
 }
 
 .video-modal {
