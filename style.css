@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 :root {
-    /* Light Mode Palette (Default) */
     --accent-hot: #f06c88;
     --accent-soft: #F4A7B9;
     --text-dark: #73434F;
@@ -19,17 +18,12 @@
 }
 
 body.dark-mode {
-    /* Dark Mode Palette */
     --accent-hot: #f06c88;
     --accent-soft: #F4A7B9;
     --text-dark: #FDE8EC;
-    /* Texto principal claro */
     --text-secondary: #B58390;
-    /* Texto secundario se mantiene por contraste */
     --bg-element: #3a2e34;
-    /* Elementos de UI oscuros */
     --bg-light: #2d2329;
-    /* Fondo general oscuro */
     --border-color: #5a454c;
     --bg-card: #35292f;
     --bg-section-alt: #281e23;
@@ -46,7 +40,7 @@ body.dark-mode {
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 100px; /* Ajusta esto según la altura de tu navbar fija */
+    scroll-padding-top: 100px;
 }
 
 body {
@@ -67,11 +61,11 @@ body {
     border-radius: 50px;
     margin: 20px auto;
     max-width: 1200px;
-    width: 90%; /* Aseguramos que ocupe un ancho relativo */
-    position: fixed; /* Cambiamos de sticky a fixed */
+    width: 90%;
+    position: fixed;
     top: 20px;
-    left: 50%; /* Centramos horizontalmente */
-    transform: translateX(-50%); /* Ajuste fino para el centrado */
+    left: 50%;
+    transform: translateX(-50%);
     box-shadow: 0 5px 20px var(--shadow-color);
     z-index: 100;
     transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -101,7 +95,6 @@ body {
     transition: background-color 0.3s ease;
     display: flex;
     white-space: nowrap;
-    /* Evita que el texto se divida en varias líneas */
     align-items: center;
 }
 
@@ -121,7 +114,7 @@ body {
 
 .dropdown-menu {
     position: absolute;
-    top: 110%; /* Posición justo debajo del botón */
+    top: 110%;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--bg-element);
@@ -133,7 +126,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, top 0.3s ease, visibility 0.3s;
-    z-index: 110; /* Asegura que esté sobre otros elementos */
+    z-index: 110;
 }
 
 .dropdown:hover .dropdown-menu {
@@ -149,13 +142,13 @@ body {
 
 .dropdown-menu a {
     padding: 12px 20px;
-    border-radius: 0; /* Quitamos el borde redondeado para un look de menú */
+    border-radius: 0;
 }
 
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 10px; /* Espacio entre el botón de modo oscuro y el de menú */
+    gap: 10px;
 }
 
 .nav-links a i {
@@ -196,7 +189,6 @@ body {
 
 body.dark-mode .dark-mode-toggle .fa-sun {
     display: block;
-    /* Color sol */
 }
 
 body.dark-mode .dark-mode-toggle .fa-moon {
@@ -207,9 +199,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    /* Alinea el contenido en la parte inferior */
     min-height: calc(100vh - 100px);
-    /* 100vh menos la altura aproximada del header. Aumentamos el padding-top para dejar espacio a la navbar fija */
     padding: 140px 5% 2rem;
     text-align: center;
 }
@@ -233,13 +223,10 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 .hello-bubble {
     position: relative;
     display: inline-block;
-    /* Para que el contenedor se ajuste al contenido */
     padding: 10px 30px 10px 30px;
-    /* Espacio para el texto y la imagen */
     border: 1px solid var(--border-color);
     border-radius: 30px;
     margin-bottom: 1rem;
-    /* Espacio debajo de la burbuja */
     font-size: 1.2rem;
 }
 
@@ -273,8 +260,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 
 .profile-image-container {
     position: relative;
-    z-index: 1;
-    z-index: 3; /* Elevamos el contenedor de la imagen para que esté sobre la sección de servicios */
+    z-index: 3;
 }
 
 .profile-image-container::before {
@@ -304,14 +290,14 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: row; /* Alineación horizontal */
-    justify-content: center; /* Centramos horizontalmente */
-    align-items: flex-end; /* Alineamos los botones en la parte inferior */
-    padding-bottom: 2rem; /* Espacio desde el borde inferior */
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 2rem;
     gap: 1rem;
     opacity: 0;
     transition: opacity 0.4s ease;
-    z-index: 2; /* Aseguramos que esté sobre la imagen */
+    z-index: 2;
 }
 
 .profile-image-container:hover .profile-buttons-overlay {
@@ -353,7 +339,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     width: 80%;
 }
 
-/* Estilo específico para el botón secundario en móvil (fondo claro) */
 .profile-actions .btn-secondary {
     color: var(--accent-hot);
     border-color: var(--accent-hot);
@@ -383,15 +368,13 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     margin: 0;
 }
 
-/* --- Responsive Design --- */
-
 @media (max-width: 1200px) {
     .nav-links {
         display: none;
         flex-direction: column;
-        position: fixed; /* Cambiado a fixed para que se posicione relativo a la ventana */
-        top: 100px; /* Distancia desde la parte superior de la ventana */
-        right: 5%; /* Alineado con el borde derecho de la navbar */
+        position: fixed;
+        top: 100px;
+        right: 5%;
         background-color: var(--bg-element);
         width: 200px;
         border-radius: 10px;
@@ -402,20 +385,19 @@ body.dark-mode .dark-mode-toggle .fa-moon {
         display: flex;
     }
 
-    /* Estilos del dropdown para móvil */
     .dropdown-toggle .dropdown-arrow {
-        display: none; /* Ocultamos la flecha en el menú hamburguesa */
+        display: none;
     }
 
     .dropdown-menu {
-        position: static; /* El menú ya no es absoluto */
+        position: static;
         transform: none;
         background-color: transparent;
         box-shadow: none;
         width: 100%;
         padding: 0;
         margin-top: 5px;
-        display: block; /* Hacemos que sea visible por defecto dentro del menú */
+        display: block;
         opacity: 1;
         visibility: visible;
     }
@@ -431,7 +413,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     }
     .dark-mode-toggle { 
         margin-left: 0; 
-        order: -1; /* Mueve el botón de modo oscuro antes del menú hamburguesa */
+        order: -1;
     }
 
     .hero-content {
@@ -457,14 +439,12 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 
     .main-intro {
         order: -1;
-        /* Mueve la sección principal hacia arriba en móvil */
     }
 }
 
 @media (max-width: 768px) {
     .hero {
-        /* Aumentamos el padding inferior en móvil para que la sección de servicios no corte el contenido */
-        padding-bottom: 6rem; 
+        padding-bottom: 6rem;
     }
 
     .intro-text h1 {
@@ -476,42 +456,38 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     }
 
     .profile-image {
-        width: 220px; /* Tamaño fijo para el círculo */
-        height: 220px; /* Tamaño fijo para el círculo */
-        object-fit: cover; /* Asegura que la imagen llene el círculo sin deformarse */
-        object-position: top; /* Alinea la imagen a la parte superior para evitar cortes */
-        border-radius: 50%; /* Crea la forma circular */
-        border: 5px solid white; /* Borde blanco para un look profesional */
-        box-shadow: 0 8px 25px rgba(181, 131, 144, 0.25); /* Sombra sutil */
+        width: 220px;
+        height: 220px;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 50%;
+        border: 5px solid white;
+        box-shadow: 0 8px 25px rgba(181, 131, 144, 0.25);
     }
 
     .profile-image-container::before {
-        display: none; /* Ocultamos el fondo de elipse anterior */
+        display: none;
     }
 
-    /* Hacemos que el overlay para los botones sea circular en móvil */
     .profile-buttons-overlay {
         border-radius: 50%;
     }
 
     .profile-image-container:hover .profile-buttons-overlay {
-        opacity: 0; /* Desactivamos el hover en móvil */
+        opacity: 0;
     }
 
     .profile-actions {
-        display: flex; /* Mostramos los botones en móvil */
+        display: flex;
     }
 }
 
-/* ===========================
-           MAIN SECTION CONTAINER
-           =========================== */
 .services-section {
     position: relative;
-    margin-top: -80px; /* Sube la sección para superponerla a la anterior */
+    margin-top: -80px;
     background: var(--bg-glass);
-    backdrop-filter: blur(20px); /* Aumentamos el desenfoque para un efecto más premium */
-    -webkit-backdrop-filter: blur(20px); /* Para compatibilidad con Safari */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 50px 50px 0 0;
     border-top: 1px solid var(--border-glass);
     border-left: 1px solid var(--border-glass);
@@ -521,9 +497,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     z-index: 2;
 }
 
-/* ===========================
-           FLOATING BLOB ELEMENTS
-           =========================== */
 .blob {
     position: absolute;
     border-radius: 50%;
@@ -569,9 +542,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     opacity: 0.5;
 }
 
-/* ===========================
-           CONTENT WRAPPER
-           =========================== */
 .services-content {
     position: relative;
     z-index: 3;
@@ -579,9 +549,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     margin: 0 auto;
 }
 
-/* ===========================
-           SECTION HEADER
-           =========================== */
 .services-header {
     display: flex;
     justify-content: space-between;
@@ -610,9 +577,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     margin-top: 15px;
 }
 
-/* ===========================
-           CARDS GRID
-           =========================== */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -620,9 +584,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     margin-bottom: 50px;
 }
 
-/* ===========================
-           INDIVIDUAL SERVICE CARD
-           =========================== */
 .service-card {
     background: var(--bg-glass);
     backdrop-filter: blur(10px);
@@ -651,9 +612,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     margin: 0;
 }
 
-/* ===========================
-           STACKED MOCKUP EFFECT
-           =========================== */
 .card-mockup {
     position: relative;
     height: 320px;
@@ -666,7 +624,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     height: 100%;
 }
 
-/* Back layer - slightly visible behind */
 .mockup-back {
     position: absolute;
     width: 94%;
@@ -682,7 +639,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     z-index: 1;
 }
 
-/* Middle layer */
 .mockup-middle {
     position: absolute;
     width: 97%;
@@ -697,7 +653,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     z-index: 2;
 }
 
-/* Front layer - main visible mockup */
 .mockup-container {
     position: absolute;
     width: 100%;
@@ -714,7 +669,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     transform: rotate(-2deg);
 }
 
-/* Mobile mockup frames */
 .phone-mockup {
     width: 28%;
     height: 85%;
@@ -743,7 +697,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     overflow: hidden;
 }
 
-/* UI Elements inside phone */
 .ui-element {
     width: 100%;
     height: 30%;
@@ -764,7 +717,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     border-radius: 8px;
 }
 
-/* Tablet mockup */
 .tablet-mockup {
     width: 40%;
     height: 95%;
@@ -799,7 +751,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     border-radius: 50%;
 }
 
-/* Center card special styling */
 .service-card:nth-child(2) .mockup-container {
     background: var(--bg-card);
     flex-direction: column;
@@ -841,9 +792,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     border-radius: 10px;
 }
 
-/* ===========================
-           CIRCULAR BUTTON (ARROW)
-           =========================== */
 .card-button {
     position: absolute;
     bottom: 35px;
@@ -883,9 +831,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     transform: rotate(45deg) translate(2px, -2px);
 }
 
-/* ===========================
-           PAGINATION DOTS
-           =========================== */
 .pagination {
     display: flex;
     justify-content: center;
@@ -912,10 +857,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 .pagination-dot:hover:not(.active) {
     background-color: var(--accent-soft);
 }
-
-/* ===========================
-           RESPONSIVE DESIGN
-           =========================== */
 
 @media (max-width: 992px) {
     .services-section {
@@ -1002,18 +943,12 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     }
 }
 
-/* ===========================
-           WORK EXPERIENCE SECTION
-           =========================== */
 .experience-section {
     background-color: var(--bg-card);
     padding: 100px 20px;
     font-family: 'Poppins', sans-serif;
 }
 
-/* ===========================
-           GENERIC SECTION TITLE STYLE
-           =========================== */
 .experience-title,
 .education-title,
 .proyectos-title,
@@ -1023,8 +958,8 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     text-align: center;
     margin-bottom: 80px;
     color: var(--text-dark);
-    position: relative; /* Necesario para el pseudo-elemento */
-    padding-bottom: 20px; /* Espacio para la línea decorativa */
+    position: relative;
+    padding-bottom: 20px;
 }
 
 .experience-title span,
@@ -1034,7 +969,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     color: var(--accent-hot);
 }
 
-/* Línea decorativa para los títulos */
 .experience-title::after,
 .education-title::after,
 .proyectos-title::after,
@@ -1044,8 +978,8 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px; /* Ancho de la línea */
-    height: 4px; /* Grosor de la línea */
+    width: 80px;
+    height: 4px;
     background-color: var(--accent-hot);
     border-radius: 2px;
 }
@@ -1056,7 +990,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     margin: 0 auto;
 }
 
-/* The vertical dashed line */
 .timeline::before {
     content: '';
     position: absolute;
@@ -1083,7 +1016,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     margin-bottom: 0;
 }
 
-/* Left Column: Company Info */
 .timeline-left {
     text-align: right;
 }
@@ -1100,13 +1032,11 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     color: var(--text-secondary);
 }
 
-/* Middle Column: Timeline Graphic */
 .timeline-middle {
     display: flex;
     justify-content: center;
-    padding-top: 10px; /* Align with text */
+    padding-top: 10px;
 }
-
 .timeline-node {
     width: 20px;
     height: 20px;
@@ -1120,14 +1050,12 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     transform: scale(1.2);
 }
 
-/* Style for the current/active job */
 .timeline-item.current .timeline-node {
     background-color: var(--text-dark);
     border-color: var(--text-dark);
     transform: scale(1.2);
 }
 
-/* Right Column: Job Details */
 .timeline-right {
     text-align: left;
 }
@@ -1147,39 +1075,35 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 
 .timeline-post-desc ul {
     list-style-position: outside;
-    padding-left: 20px; /* Indent list items */
+    padding-left: 20px;
     margin-top: 8px;
 }
 
 .timeline-post-desc li {
     margin-bottom: 4px;
-    color: var(--text-secondary); /* Ensure list items use secondary text color */
+    color: var(--text-secondary);
 }
 
-/* ===========================
-           EXPERIENCE RESPONSIVE
-           =========================== */
 @media (max-width: 768px) {
     .timeline::before {
-        left: 10px; /* Move line to the left */
+        left: 10px;
         transform: translateX(0);
     }
 
     .timeline-item {
-        grid-template-columns: 40px 1fr; /* 2 columns: graphic | content */
+        grid-template-columns: 40px 1fr;
         gap: 15px;
     }
 
-    /* The left column is now hidden, content is stacked in the right column */
     .timeline-left {
-        grid-column: 2; /* Move to the right side */
+        grid-column: 2;
         text-align: left;
         margin-bottom: 8px;
     }
 
     .timeline-middle {
-        grid-column: 1; /* Move to the far left */
-        grid-row: 1 / span 2; /* Span across both rows of content */
+        grid-column: 1;
+        grid-row: 1 / span 2;
         padding-top: 10px;
     }
 
@@ -1188,9 +1112,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     }
 }
 
-/* ===========================
-           EDUCATION & COURSES SECTION
-           =========================== */
 .education-section {
     background-color: var(--bg-section-alt);
     padding: 100px 20px;
@@ -1204,10 +1125,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     margin: 0 auto;
 }
 
-/* ==================================================
-   GLOWING CARD EFFECT FOR EDUCATION SECTION (Visible en ambos modos)
-   ================================================== */
-
 .education-card-poda {
     position: relative;
     display: flex;
@@ -1215,13 +1132,11 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     justify-content: center;
     width: 100%;
     min-height: 250px;
-    padding: 4px; /* Pequeño espacio para que el borde no se corte */
+    padding: 4px;
 }
 
-/* Capa principal del contenido de la tarjeta */
 .poda-main-content {
-    /* FORZAMOS UN FONDO OSCURO EN AMBOS MODOS para que el brillo destaque */
-    background-color: #35292f; 
+    background-color: #35292f;
     border-radius: 10px;
     width: 100%;
     height: 100%;
@@ -1231,7 +1146,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     box-sizing: border-box;
 }
 
-/* FORZAMOS TEXTO CLARO EN AMBOS MODOS para que sea legible sobre el fondo oscuro */
 .education-card-poda .card-icon {
     font-size: 2rem;
     color: var(--accent-hot);
@@ -1239,13 +1153,12 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 }
 .education-card-poda .education-institution,
 .education-card-poda .education-degree {
-    color: #FDE8EC; /* Color de texto principal claro */
+    color: #FDE8EC;
 }
 .education-card-poda .education-date {
-    color: var(--text-secondary); /* Este color de acento funciona bien */
+    color: var(--text-secondary);
 }
 
-/* Capas de efectos de brillo y borde (ahora siempre visibles) */
 .white,
 .border,
 .darkBorderBg,
@@ -1257,7 +1170,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     z-index: 1;
     border-radius: 12px;
     filter: blur(3px);
-    opacity: 1; /* Aseguramos que sea visible por defecto */
+    opacity: 1;
 }
 
 .education-card-poda:hover {
@@ -1343,7 +1256,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     transition: all 2s;
 }
 
-/* Animaciones en Hover (ahora funcionan en ambos modos) */
 .education-card-poda:hover > .darkBorderBg::before {
     transform: translate(-50%, -50%) rotate(-98deg);
 }
@@ -1406,9 +1318,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     text-decoration: underline;
 }
 
-/* ===========================
-           EDUCATION RESPONSIVE
-           =========================== */
 @media (max-width: 768px) {
     .education-section {
         padding: 80px 20px;
@@ -1420,7 +1329,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     }
 
     .education-grid {
-        grid-template-columns: 1fr; /* Stack cards on mobile */
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1428,29 +1337,29 @@ body.dark-mode .dark-mode-toggle .fa-moon {
            SOFTWARE STRIP SECTION
            =========================== */
 .software-strip {    
-    background-color: var(--text-dark); /* Usando el color oscuro de la paleta */
+    background-color: var(--text-dark);
     padding: 40px 0;
     overflow: hidden;
-    white-space: nowrap; /* Evita que los elementos se rompan en varias líneas */
+    white-space: nowrap;
     position: relative;
 }
 
 .logos-container {
-    display: inline-block; /* Cambiado a inline-block para que la animación funcione correctamente */
+    display: inline-block;
     animation: marquee 20s linear infinite;
 }
 
 .software-strip:hover .logos-container {
-    animation-play-state: paused; /* Pausa la animación en hover */
+    animation-play-state: paused;
 }
 
 .logo-item {
-    display: inline-flex; /* Usamos inline-flex para los elementos individuales */
+    display: inline-flex;
     align-items: center;
     color: var(--bg-element);
     font-size: 1.5rem;
     font-weight: 600;
-    margin: 0 40px; /* Espacio entre logos */
+    margin: 0 40px;
 }
 
 .logo-item i {
@@ -1458,17 +1367,15 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     font-size: 2rem;
 }
 body.dark-mode .software-strip {
-    background-color: #1e171b; /* Un poco más oscuro que el fondo general */
+    background-color: #1e171b;
 }
 
-
-/* Animación de desplazamiento */
 @keyframes marquee {
     0% {
         transform: translateX(0%);
     }
     100% {
-        transform: translateX(-50%); /* Mueve hasta el inicio de la segunda copia */
+        transform: translateX(-50%);
     }
 }
 
@@ -1482,9 +1389,6 @@ body.dark-mode .software-strip {
     }
 }
 
-/* ===========================
-           PROYECTOS SECTION
-           =========================== */
 .proyectos-section {
     background-color: var(--bg-card);
     padding: 100px 20px;
@@ -1498,169 +1402,107 @@ body.dark-mode .software-strip {
     margin: 0 auto 60px;
 }
 
-.proyecto-card {
+.proyecto-card,
+.cuenta-card,
+.video-card {
     background-color: var(--bg-card);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 15px var(--shadow-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    cursor: pointer;
 }
 
-.proyecto-card:hover {
+.proyecto-card:hover,
+.cuenta-card:hover,
+.video-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px var(--shadow-color);
 }
 
-.proyecto-link {
+.proyecto-link,
+.cuenta-link {
     text-decoration: none;
     color: inherit;
     display: block;
 }
 
-.proyecto-imagen {
+.proyecto-imagen,
+.cuenta-imagen,
+.video-thumbnail {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
+    position: relative;
 }
 
-.proyecto-imagen img {
+.proyecto-imagen img,
+.cuenta-imagen img,
+.video-thumbnail img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.4s ease;
 }
 
-.proyecto-card:hover .proyecto-imagen img {
+.proyecto-card:hover img,
+.cuenta-card:hover img,
+.video-card:hover img {
     transform: scale(1.05);
 }
 
-.proyecto-info {
+.proyecto-info,
+.cuenta-info,
+.video-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 20px;
+    color: #fff;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 80%);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.proyecto-titulo {
+.proyecto-card:hover .proyecto-info,
+.cuenta-card:hover .cuenta-info,
+.video-card:hover .video-info {
+    transform: translateY(0);
+}
+
+.proyecto-titulo,
+.cuenta-titulo,
+.video-titulo {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 5px;
+    color: #fff;
+    margin-bottom: 8px;
 }
 
-.proyecto-categoria {
+.proyecto-categoria,
+.cuenta-categoria {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: #fff;
+    opacity: 0.8;
 }
 
 .proyectos-pagination {
     margin-top: 40px;
 }
 
-/* ===========================
-           PROYECTOS RESPONSIVE
-           =========================== */
-@media (max-width: 768px) {
-    .proyectos-section {
-        padding: 80px 20px;
-    }
-
-    .proyectos-title {
-        font-size: 2.5rem;
-        margin-bottom: 60px;
-    }
-
-    .proyectos-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ===========================
-           CUENTAS SECTION
-           =========================== */
 .cuentas-section {
-    background-color: var(--bg-section-alt); /* Fondo alternativo para variar */
+    background-color: var(--bg-section-alt);
     padding: 100px 20px;
 }
 
 .cuentas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajuste para tarjetas un poco más pequeñas */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto 60px;
-}
-
-.cuenta-card {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative; /* Necesario para el posicionamiento del overlay */
-}
-
-.cuenta-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px var(--shadow-color);
-}
-
-.cuenta-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    position: relative; /* Contenedor para la imagen y el overlay */
-}
-
-.cuenta-imagen {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-}
-
-.cuenta-imagen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease, filter 0.4s ease;
-}
-
-.cuenta-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: var(--bg-glass);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 20px;
-    text-align: center;
-    transform: translateY(100%); /* Oculto por defecto */
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    color: var(--text-dark);
-    border-top: 1px solid var(--border-glass);
-}
-
-/* En modo oscuro, el texto del overlay debe ser claro */
-body.dark-mode .cuenta-info {
-    color: var(--text-dark);
-}
-
-.cuenta-card:hover .cuenta-info {
-    transform: translateY(0);
-}
-
-.cuenta-card:hover .cuenta-imagen img {
-    transform: scale(1.1);
-    filter: blur(2px) brightness(0.8);
-}
-
-.cuenta-titulo {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.cuenta-categoria {
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-    opacity: 0.9;
 }
 
 .cuenta-ver-perfil {
@@ -1683,42 +1525,6 @@ body.dark-mode .cuenta-info {
     margin-top: 40px;
 }
 
-/* ===========================
-           CUENTAS RESPONSIVE
-           =========================== */
-@media (max-width: 768px) {
-    .cuentas-section {
-        padding: 80px 20px;
-    }
-
-    /* Ajustes para tarjetas de Cuentas en móvil (sin hover) */
-    .cuenta-card {
-        display: flex; /* Usamos flexbox para un mejor control del contenido interno */
-    }
-
-    .cuenta-info {
-        position: absolute; /* Superponemos la info sobre la imagen */
-        bottom: 0;
-        left: 0;
-        right: 0;
-        transform: translateY(0); /* La hacemos visible por defecto */
-        background: var(--bg-glass); /* Re-aplicamos el efecto cristal */
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-top: 1px solid var(--border-glass);
-        padding: 15px; /* Ajustamos el padding para móvil */
-    }
-
-    /* Desactivamos los efectos de hover en la imagen en móvil */
-    .cuenta-card:hover .cuenta-imagen img {
-        transform: scale(1.05); /* Mantenemos un sutil zoom para dar feedback al tocar */
-        filter: none;
-    }
-}
-
-/* ===========================
-           VIDEOS SECTION
-           =========================== */
 .videos-section {
     background-color: var(--bg-section-alt);
     padding: 100px 20px;
@@ -1732,122 +1538,52 @@ body.dark-mode .cuenta-info {
     margin: 0 auto 60px;
 }
 
-/* Forzamos 4 columnas en pantallas más grandes para evitar que crezcan demasiado */
 @media (min-width: 1200px) {
     .videos-grid {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
-.video-card {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative; /* Necesario para la superposición */
-}
-
-.video-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px var(--shadow-color);
-}
-
-.video-thumbnail {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 5; /* Proporción ideal para reels/stories */
-    overflow: hidden;
-}
-
-.video-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 'cover' llena el espacio y se ve más profesional */
-    transition: transform 0.4s ease;
-}
-
-.video-card:hover .video-thumbnail img {
-    transform: scale(1.1);
-}
-
-.video-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Alinea el contenido en la parte inferior */
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    color: #fff; /* Todo el texto dentro será blanco */
-}
-
-.video-card:hover .video-info {
-    opacity: 1;
-}
-
-.video-titulo {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 10px;
-    transform: translateY(20px);
-    transition: transform 0.4s 0.1s ease;
-}
-
 .video-social-link {
     font-size: 0.9rem;
     font-weight: 600;
     color: #fff;
-    background-color: var(--accent-hot);
-    padding: 6px 12px;
-    border-radius: 20px;
     text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.4s 0.2s ease;
-    transform: translateY(20px);
-    align-self: flex-start; /* Para que no ocupe todo el ancho */
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    margin-top: 5px;
+    display: inline-block;
 }
 
 .video-social-link i {
     margin-left: 5px;
 }
 
+.video-social-link:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
 .videos-pagination {
     margin-top: 40px;
 }
 
-/* Animaciones de entrada para el texto en hover */
-.video-card:hover .video-titulo,
-.video-card:hover .video-social-link {
-    transform: translateY(0);
-}
-
-/* El botón de play ahora está dentro de .video-info */
 .play-overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    font-size: 3rem;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
     color: white;
     opacity: 0;
     transition: opacity 0.4s ease, transform 0.4s ease;
-    pointer-events: none; /* Para que no interfiera con el click en la tarjeta */
+    pointer-events: none;
 }
 
 .video-card:hover .play-overlay {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
 }
 
-/* ===========================
-           VIDEO MODAL (LIGHTBOX)
-           =========================== */
 .video-modal {
     position: fixed;
     z-index: 1000;
@@ -1855,8 +1591,8 @@ body.dark-mode .cuenta-info {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo ligeramente más sutil */
-    backdrop-filter: blur(10px); /* Aumentamos el desenfoque para un efecto premium */
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     align-items: center;
     justify-content: center;
@@ -1873,15 +1609,15 @@ body.dark-mode .cuenta-info {
 
 .video-modal-content {
     position: relative;
-    width: 90vw; /* Usamos unidades de viewport para mejor adaptabilidad */
-    max-width: 900px; /* Un poco más grande en desktop */
+    width: 90vw;
+    max-width: 900px;
     max-height: 90vh;
-    background-color: #000; /* Fondo negro para inmersión */
+    background-color: #000;
     border-radius: 16px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    overflow: hidden; /* Clave para que el video no se salga */
-    display: flex; /* Mantenemos flex para centrar */
-    aspect-ratio: auto; /* CLAVE: Permite que el contenedor se ajuste al aspect-ratio del video */
+    overflow: hidden;
+    display: flex;
+    aspect-ratio: auto;
     transform: translateY(50px) scale(0.95);
     opacity: 0;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease, height 0.3s ease;
@@ -1894,9 +1630,9 @@ body.dark-mode .cuenta-info {
 
 .video-modal-content video {
     width: 100%;
-    height: auto; /* El alto se ajustará automáticamente para mantener la proporción */
+    height: auto;
     display: block;
-    border-radius: 16px; /* Para que no se salga de los bordes redondeados */
+    border-radius: 16px;
 }
 
 .close-modal {
@@ -1915,7 +1651,7 @@ body.dark-mode .cuenta-info {
     justify-content: center;
     border: none;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    z-index: 10; /* Asegura que esté sobre el video */
+    z-index: 10;
 }
 
 .close-modal:hover {
@@ -1923,9 +1659,6 @@ body.dark-mode .cuenta-info {
     transform: scale(1.1);
 }
 
-/* ===========================
-           CUSTOM VIDEO CONTROLS
-           =========================== */
 .video-controls {
     position: absolute;
     bottom: 20px;
@@ -1939,7 +1672,7 @@ body.dark-mode .cuenta-info {
     padding: 10px 15px;
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 21; /* Sobre el video */
+    z-index: 21;
 }
 
 .video-modal-content:hover .video-controls {
@@ -2006,14 +1739,12 @@ body.dark-mode .cuenta-info {
     border-radius: 50%;
 }
 
-/* Animación para el efecto glitter del borde */
 @keyframes glitter-border {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* Mejoras para móvil */
 @media (max-width: 768px) {
     .video-modal-content {
         width: 100vw;
@@ -2031,9 +1762,6 @@ body.dark-mode .cuenta-info {
     }
 }
 
-/* ===========================
-           MODERN ANIMATIONS
-           =========================== */
 .fade-in {
     opacity: 0;
     transform: translateY(30px);
@@ -2045,9 +1773,6 @@ body.dark-mode .cuenta-info {
     transform: translateY(0);
 }
 
-/* ===========================
-           FOOTER SECTION
-           =========================== */
 .site-footer {
     background: linear-gradient(180deg, var(--bg-element) 0%, var(--bg-card) 100%);
     color: var(--text-dark);
@@ -2062,7 +1787,7 @@ body.dark-mode .cuenta-info {
     width: 100%;
     overflow: hidden;
     line-height: 0;
-    transform: translateY(-1px); /* Evita gaps */
+    transform: translateY(-1px);
 }
 
 .footer-wave svg {
@@ -2089,7 +1814,7 @@ body.dark-mode .cuenta-info {
 }
 
 .footer-about {
-    max-width: 600px; /* Limitamos el ancho del texto para mejor legibilidad */
+    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -2112,8 +1837,8 @@ body.dark-mode .cuenta-info {
 
 .footer-socials a {
     color: var(--text-dark);
-    font-size: 2rem; /* Iconos un poco más grandes */
-    margin: 0 20px; /* Espaciado uniforme */
+    font-size: 2rem;
+    margin: 0 20px;
     text-decoration: none;
     transition: color 0.3s ease, transform 0.3s ease;
     display: inline-block;
@@ -2137,7 +1862,6 @@ body.dark-mode .cuenta-info {
 }
 
 @media (max-width: 768px) {
-    /* El diseño ya es centrado, así que los ajustes son mínimos */
     .footer-title { font-size: 2rem; }
     .footer-text { font-size: 1rem; }
     .footer-socials a { font-size: 1.6rem; margin: 0 12px; }
