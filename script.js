@@ -108,6 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
     setupPagination('.cuentas-grid', '.cuenta-card', '.cuentas-pagination', 4);
     setupPagination('.videos-grid', '.video-card', '.videos-pagination', 2);
 
+    // --- Lógica del carrusel de logos ---
+    const scroller = document.querySelector('.logos-scroller');
+    if (scroller) {
+        const scrollerContent = Array.from(scroller.children);
+        scrollerContent.forEach(item => {
+            const duplicatedItem = item.cloneNode(true);
+            scroller.appendChild(duplicatedItem);
+        });
+    }
     // --- Lógica del botón "Ver más" para Cursos ---
     const toggleCoursesBtn = document.getElementById('toggle-courses-btn');
     const educationGrid = document.querySelector('.education-grid');
