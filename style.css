@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap');
 
 :root {
     --accent-hot: #f06c88;
@@ -44,10 +44,13 @@ html {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif; /* Changed font to Inter for an Apple-like aesthetic */
     background-color: var(--bg-light);
     color: var(--text-dark);
     line-height: 1.6;
+    text-rendering: optimizeLegibility; /* Improved text rendering */
+    -webkit-font-smoothing: antialiased; /* Smoother font rendering on WebKit browsers */
+    -moz-osx-font-smoothing: grayscale; /* Smoother font rendering on Firefox */
 }
 
 .navbar {
@@ -57,8 +60,8 @@ body {
     padding: 1rem 5%;
     background-color: var(--bg-glass);
     border: 1px solid var(--border-glass);
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
+    backdrop-filter: blur(12px); /* Slightly increased blur */
+    border-radius: 60px; /* More rounded */
     margin: 20px auto;
     max-width: 1200px;
     width: 90%;
@@ -224,8 +227,8 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     position: relative;
     display: inline-block;
     padding: 10px 30px 10px 30px;
-    border: 1px solid var(--border-color);
-    border-radius: 30px;
+    border: 1px solid var(--border-glass); /* Used glass border for consistency */
+    border-radius: 40px; /* More rounded */
     margin-bottom: 1rem;
     font-size: 1.2rem;
 }
@@ -307,7 +310,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 .profile-btn {
     text-decoration: none;
     padding: 10px 25px;
-    border-radius: 50px;
+    border-radius: 50px; /* Already rounded, good */
     font-weight: 600;
     transition: all 0.3s ease;
     border: 2px solid transparent;
@@ -587,7 +590,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 .service-card {
     background: var(--bg-glass);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Keep for Safari */
     border: 1px solid var(--border-color);
     border-radius: 30px;
     padding: 0;
@@ -598,7 +601,8 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 
 .service-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(240, 108, 136, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Softer, more diffused shadow */
+    border-color: var(--accent-soft); /* Subtle border highlight on hover */
 }
 
 .card-header {
@@ -631,7 +635,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     top: 3%;
     left: 3%;
     background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
-    border-radius: 22px;
+    border-radius: 28px; /* More rounded */
     transform: rotate(-3deg);
     opacity: 0.5;
     filter: blur(1px);
@@ -646,7 +650,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     top: 1.5%;
     left: 1.5%;
     background: linear-gradient(135deg, #6b6b6b 0%, #5e5e5e 100%);
-    border-radius: 24px;
+    border-radius: 30px; /* More rounded */
     transform: rotate(1.5deg);
     opacity: 0.7;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
@@ -658,7 +662,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #333 0%, #2c2c2c 100%);
-    border-radius: 25px;
+    border-radius: 32px; /* More rounded */
     padding: 25px;
     display: flex;
     align-items: center;
@@ -673,7 +677,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     width: 28%;
     height: 85%;
     background: var(--bg-card);
-    border-radius: 20px;
+    border-radius: 26px; /* More rounded */
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     position: relative;
     overflow: hidden;
@@ -701,7 +705,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     width: 100%;
     height: 30%;
     background: linear-gradient(135deg, #555 0%, #484848 100%);
-    border-radius: 12px;
+    border-radius: 18px; /* More rounded */
     margin-bottom: 10px;
     position: relative;
 }
@@ -721,7 +725,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     width: 40%;
     height: 95%;
     background: var(--bg-card);
-    border-radius: 15px;
+    border-radius: 22px; /* More rounded */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     position: relative;
 }
@@ -735,7 +739,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     width: 100%;
     height: 48%;
     background: linear-gradient(135deg, var(--bg-element) 0%, var(--accent-soft) 100%);
-    border-radius: 12px;
+    border-radius: 18px; /* More rounded */
     margin-bottom: 8px;
     position: relative;
 }
@@ -761,7 +765,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     width: 85%;
     height: 90%;
     background: var(--bg-card);
-    border: 2px solid #f0f0f0;
+    border: 2px solid var(--border-color); /* Use variable for consistency */
 }
 
 .burger-item {
@@ -774,7 +778,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
         radial-gradient(circle at 50% 55%, #FFD700 52%, #FFA500 60%, transparent 60%),
         radial-gradient(circle at 50% 70%, #8B4513 62%, #654321 100%);
     background-size: 100% 100%;
-    border-radius: 12px;
+    border-radius: 18px; /* More rounded */
     margin-bottom: 15px;
 }
 
@@ -789,7 +793,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     width: 100%;
     aspect-ratio: 1;
     background: linear-gradient(135deg, var(--bg-element) 0%, var(--accent-soft) 100%);
-    border-radius: 10px;
+    border-radius: 16px; /* More rounded */
 }
 
 .card-button {
@@ -1136,7 +1140,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 .education-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 24px; /* More rounded */
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -1146,14 +1150,15 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 
 .education-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 25px var(--shadow-color);
-    border-color: var(--accent-hot);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    border-color: var(--accent-soft); /* Subtle border highlight */
 }
 
 .card-icon {
     font-size: 2rem;
     color: var(--accent-hot);
     margin-bottom: 15px;
+    border: 1px solid var(--border-color); /* Added border for definition */
     background-color: var(--bg-element);
     width: 60px;
     height: 60px;
@@ -1161,6 +1166,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 18px; /* More rounded */
 }
 
 .education-institution {
@@ -1312,18 +1318,19 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 .proyecto-card,
 .video-card {
     background-color: var(--bg-card);
-    border-radius: 12px;
+    border-radius: 24px; /* More rounded */
     overflow: hidden;
-    box-shadow: 0 4px 15px var(--shadow-color);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Softer initial shadow */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     cursor: pointer;
+    border: 1px solid var(--border-color); /* Added subtle border */
 }
 
 .proyecto-card:hover,
 .video-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px var(--shadow-color);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15); /* Softer, more diffused shadow */
 }
 
 .proyecto-link,
@@ -1336,7 +1343,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 .proyecto-imagen,
 .video-thumbnail {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    border-radius: 24px 24px 0 0; /* Match top corners of parent card */
     overflow: hidden;
     position: relative;
 }
@@ -1406,10 +1413,11 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 .cuenta-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 24px; /* More rounded */
     text-align: center;
     padding: 30px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Softer initial shadow */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1417,7 +1425,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 
 .cuenta-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px var(--shadow-color);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15); /* Softer, more diffused shadow */
 }
 
 .cuenta-imagen {
@@ -1630,7 +1638,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     max-width: 900px;
     max-height: 90vh;
     background-color: #000;
-    border-radius: 16px;
+    border-radius: 24px; /* More rounded */
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     display: flex;
@@ -1647,7 +1655,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 
 .video-modal-content video {
     width: 100%;
-    height: auto;
+    height: 100%; /* Ensure video fills height */
     display: block;
     border-radius: 16px;
 }
@@ -1685,7 +1693,7 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     max-width: 800px;
     background: var(--bg-glass);
     backdrop-filter: blur(10px);
-    border-radius: 12px;
+    border-radius: 18px; /* More rounded */
     padding: 10px 15px;
     opacity: 0;
     transition: opacity 0.3s ease;
