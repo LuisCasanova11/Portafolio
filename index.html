@@ -16,7 +16,8 @@
             display: block;
             margin: auto;     /* Centra el video vertical y horizontalmente */
         }
-    </style>
+
+            </style>
 </head>
 
 <body>
@@ -91,128 +92,6 @@ y den vida a las marcas en redes sociales."</p>
             </div>
         </div>
     </main>
-    <section id="servicios" class="services-section">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-        <div class="blob blob-4"></div>
-
-        <div class="services-content">
-            <header class="services-header fade-in">
-                <h2 class="services-title">
-                    Mis <span class="accent">Proyectos</span>
-                </h2>
-                <p class="services-description">
-                    Aquí podrás encontrar algunos de los proyectos en los que he trabajado a lo largo de mi experiencia laboral.
-                </p>
-            </header>
-
-            <div class="services-grid fade-in">
-                <article class="service-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Publicidad - El Retorno</h3>
-                    </div>
-                    <div class="card-mockup">
-                        <div class="mockup-stack">
-                            <div class="mockup-back"></div>
-                            <div class="mockup-middle"></div>
-                            <div class="mockup-container">
-                                <div class="phone-mockup">
-                                    <div class="phone-content">
-                                        <div class="ui-element"></div>
-                                        <div class="ui-element"></div>
-                                        <div class="ui-element" style="height: 35%;"></div>
-                                    </div>
-                                </div>
-                                <div class="phone-mockup">
-                                    <div class="phone-content">
-                                        <div class="ui-element"></div>
-                                        <div class="ui-element"></div>
-                                    </div>
-                                </div>
-                                <div class="tablet-mockup">
-                                    <div class="tablet-content">
-                                        <div class="tablet-ui"></div>
-                                        <div class="tablet-ui"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#" class="card-button" aria-label="Learn more about UI/UX Design"></a>
-                </article>
-
-                <article class="service-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Videos - Tikal desarrolladora</h3>
-                    </div>
-                    <div class="card-mockup">
-                        <div class="mockup-stack">
-                            <div class="mockup-back"></div>
-                            <div class="mockup-middle"></div>
-                            <div class="mockup-container">
-                                <div class="phone-mockup" style="width: 85%; height: 90%;">
-                                    <div class="phone-content">
-                                        <div class="burger-item"></div>
-                                        <div class="menu-items">
-                                            <div class="menu-item"></div>
-                                            <div class="menu-item"></div>
-                                            <div class="menu-item"></div>
-                                            <div class="menu-item"></div>
-                                            <div class="menu-item"></div>
-                                            <div class="menu-item"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#" class="card-button" aria-label="Learn more about Web Design"></a>
-                </article>
-
-                <article class="service-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Espectaculares</h3>
-                    </div>
-                    <div class="card-mockup">
-                        <div class="mockup-stack">
-                            <div class="mockup-back"></div>
-                            <div class="mockup-middle"></div>
-                            <div class="mockup-container">
-                                <div class="phone-mockup">
-                                    <div class="phone-content">
-                                        <div class="ui-element"></div>
-                                        <div class="ui-element"></div>
-                                        <div class="ui-element" style="height: 35%;"></div>
-                                    </div>
-                                </div>
-                                <div class="phone-mockup">
-                                    <div class="phone-content">
-                                        <div class="ui-element"></div>
-                                        <div class="ui-element"></div>
-                                    </div>
-                                </div>
-                                <div class="tablet-mockup">
-                                    <div class="tablet-content">
-                                        <div class="tablet-ui"></div>
-                                        <div class="tablet-ui"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#" class="card-button" aria-label="Learn more about Landing Page"></a>
-                </article>
-            </div>
-
-            <nav class="pagination fade-in" aria-label="Service pages">
-                <span class="pagination-dot active" role="button" aria-label="Page 1"></span>
-                <span class="pagination-dot" role="button" aria-label="Page 2"></span>
-                <span class="pagination-dot" role="button" aria-label="Page 3"></span>
-                <span class="pagination-dot" role="button" aria-label="Page 4"></span>
-            </nav>
-        </div>
-    </section>
 
     <section id="experiencia" class="experience-section">
         <h2 class="experience-title">
@@ -352,71 +231,181 @@ y den vida a las marcas en redes sociales."</p>
            =========================== -->
     <section id="proyectos" class="proyectos-section">
         <h2 class="proyectos-title">
-            Mis <span>Proyectos</span>
+            Mis <span>Diseños</span>
         </h2>
+        
+        <!-- Filtros por empresa -->
+        <div class="proyectos-filters fade-in">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="el-retorno">El Retorno</button>
+            <button class="filter-btn" data-filter="tikal">Tikal</button>
+            <button class="filter-btn" data-filter="fogysa">Fogysa</button>
+        </div>
+
         <div class="proyectos-grid">
-            <article class="proyecto-card">
+            <!-- El Retorno -->
+            <article class="proyecto-card" data-company="el-retorno">
                 <a href="#" class="proyecto-link">
                     <div class="proyecto-imagen">
-                        <img src="files/Luma.jpg"
-                            alt="Imagen del Proyecto 1">
+                        <img src="files/Luma.jpg" alt="Diseño Publicitario El Retorno">
                     </div>
                     <div class="proyecto-info">
-                        <h3 class="proyecto-titulo">Branding para Café</h3>
-                        <p class="proyecto-categoria">Diseño de Marca</p>
+                        <h3 class="proyecto-titulo">Diseño Publicitario</h3>
+                        <p class="proyecto-categoria">El Retorno</p>
                     </div>
                 </a>
             </article>
-            <article class="proyecto-card">
+            <article class="proyecto-card" data-company="el-retorno">
                 <a href="#" class="proyecto-link">
                     <div class="proyecto-imagen">
-                        <img src="files/Luma.jpg"
-                            alt="Imagen del Proyecto 2">
+                        <img src="files/Luma.jpg" alt="Contenido Social El Retorno">
                     </div>
                     <div class="proyecto-info">
-                        <h3 class="proyecto-titulo">Redes Sociales - Moda</h3>
-                        <p class="proyecto-categoria">Gestión de Contenido</p>
+                        <h3 class="proyecto-titulo">Contenido Social</h3>
+                        <p class="proyecto-categoria">El Retorno</p>
                     </div>
                 </a>
             </article>
-            <article class="proyecto-card">
+            <article class="proyecto-card" data-company="el-retorno">
                 <a href="#" class="proyecto-link">
                     <div class="proyecto-imagen">
-                        <img src="files/Luma.jpg"
-                            alt="Imagen del Proyecto 3">
+                        <img src="files/Luma.jpg" alt="Diseño Promocional El Retorno">
                     </div>
                     <div class="proyecto-info">
-                        <h3 class="proyecto-titulo">Campaña Publicitaria</h3>
-                        <p class="proyecto-categoria">Marketing Digital</p>
+                        <h3 class="proyecto-titulo">Diseño Promocional</h3>
+                        <p class="proyecto-categoria">El Retorno</p>
                     </div>
                 </a>
             </article>
-             <article class="proyecto-card">
+            <article class="proyecto-card" data-company="el-retorno">
                 <a href="#" class="proyecto-link">
                     <div class="proyecto-imagen">
-                        <img src="files/Luma.jpg"
-                            alt="Imagen del Proyecto 3">
+                        <img src="files/Luma.jpg" alt="Branding El Retorno">
                     </div>
                     <div class="proyecto-info">
-                        <h3 class="proyecto-titulo">Campaña Publicitaria</h3>
-                        <p class="proyecto-categoria">Marketing Digital</p>
+                        <h3 class="proyecto-titulo">Branding</h3>
+                        <p class="proyecto-categoria">El Retorno</p>
                     </div>
                 </a>
             </article>
-             <article class="proyecto-card">
+
+            <!-- Tikal -->
+            <article class="proyecto-card" data-company="tikal">
                 <a href="#" class="proyecto-link">
                     <div class="proyecto-imagen">
-                        <img src="files/Luma.jpg"
-                            alt="Imagen del Proyecto 3">
+                        <img src="files/Luma.jpg" alt="Branding Corporativo Tikal">
                     </div>
                     <div class="proyecto-info">
-                        <h3 class="proyecto-titulo">Campaña Publicitaria</h3>
-                        <p class="proyecto-categoria">Marketing Digital</p>
+                        <h3 class="proyecto-titulo">Branding Corporativo</h3>
+                        <p class="proyecto-categoria">Tikal</p>
+                    </div>
+                </a>
+            </article>
+            <article class="proyecto-card" data-company="tikal">
+                <a href="#" class="proyecto-link">
+                    <div class="proyecto-imagen">
+                        <img src="files/Luma.jpg" alt="Diseño Web Tikal">
+                    </div>
+                    <div class="proyecto-info">
+                        <h3 class="proyecto-titulo">Diseño Web</h3>
+                        <p class="proyecto-categoria">Tikal</p>
+                    </div>
+                </a>
+            </article>
+            <article class="proyecto-card" data-company="tikal">
+                <a href="#" class="proyecto-link">
+                    <div class="proyecto-imagen">
+                        <img src="files/Luma.jpg" alt="Campaña Digital Tikal">
+                    </div>
+                    <div class="proyecto-info">
+                        <h3 class="proyecto-titulo">Campaña Digital</h3>
+                        <p class="proyecto-categoria">Tikal</p>
+                    </div>
+                </a>
+            </article>
+            <article class="proyecto-card" data-company="tikal">
+                <a href="#" class="proyecto-link">
+                    <div class="proyecto-imagen">
+                        <img src="files/Luma.jpg" alt="Material Promocional Tikal">
+                    </div>
+                    <div class="proyecto-info">
+                        <h3 class="proyecto-titulo">Material Promocional</h3>
+                        <p class="proyecto-categoria">Tikal</p>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Fogysa -->
+            <article class="proyecto-card" data-company="fogysa">
+                <a href="#" class="proyecto-link">
+                    <div class="proyecto-imagen">
+                        <img src="files/2.png" alt="Identidad Visual Fogysa">
+                    </div>
+                    <div class="proyecto-info">
+                        <h3 class="proyecto-titulo">Identidad Visual</h3>
+                        <p class="proyecto-categoria">Fogysa</p>
+                    </div>
+                </a>
+            </article>
+            <article class="proyecto-card" data-company="fogysa">
+                <a href="#" class="proyecto-link">
+                    <div class="proyecto-imagen">
+                        <img src="files/3.png" alt="Diseño Gráfico Fogysa">
+                    </div>
+                    <div class="proyecto-info">
+                        <h3 class="proyecto-titulo">Diseño Gráfico</h3>
+                        <p class="proyecto-categoria">Fogysa</p>
+                    </div>
+                </a>
+            </article>
+            <article class="proyecto-card" data-company="fogysa">
+                <a href="#" class="proyecto-link">
+                    <div class="proyecto-imagen">
+                        <img src="files/4.png" alt="Contenido Visual Fogysa">
+                    </div>
+                    <div class="proyecto-info">
+                        <h3 class="proyecto-titulo">Contenido Visual</h3>
+                        <p class="proyecto-categoria">Fogysa</p>
+                    </div>
+                </a>
+            </article>
+            <article class="proyecto-card" data-company="fogysa">
+                <a href="#" class="proyecto-link">
+                    <div class="proyecto-imagen">
+                        <img src="files/5.png" alt="Diseño Publicitario Fogysa">
+                    </div>
+                    <div class="proyecto-info">
+                        <h3 class="proyecto-titulo">Diseño Publicitario</h3>
+                        <p class="proyecto-categoria">Fogysa</p>
+                    </div>
+                </a>
+            </article>
+               <article class="proyecto-card" data-company="fogysa">
+                <a href="#" class="proyecto-link">
+                    <div class="proyecto-imagen">
+                        <img src="files/6.png" alt="Diseño Publicitario Fogysa">
+                    </div>
+                    <div class="proyecto-info">
+                        <h3 class="proyecto-titulo">Diseño Publicitario</h3>
+                        <p class="proyecto-categoria">Fogysa</p>
+                    </div>
+                </a>
+            </article>
+              </article>
+               <article class="proyecto-card" data-company="fogysa">
+                <a href="#" class="proyecto-link">
+                    <div class="proyecto-imagen">
+                        <img src="files/7.png" alt="Diseño Publicitario Fogysa">
+                    </div>
+                    <div class="proyecto-info">
+                        <h3 class="proyecto-titulo">Diseño Publicitario</h3>
+                        <p class="proyecto-categoria">Fogysa</p>
                     </div>
                 </a>
             </article>
         </div>
-        <nav class="pagination proyectos-pagination fade-in" aria-label="Páginas de proyectos">
+
+        <nav class="pagination proyectos-pagination fade-in" aria-label="Páginas de proyectos" data-items-per-page="4">
         </nav>
     </section>
 
@@ -498,8 +487,60 @@ y den vida a las marcas en redes sociales."</p>
                     </a>
                 </div>
             </article>
+            <article class="video-card" data-video-src="videos/TIKAL1.mp4">
+                <div class="video-thumbnail">
+                    <img src="files/TIKAL1.jpg"
+                        alt="Miniatura del video 3">
+                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">Tikal Sale</h3>
+                    <a href="https://www.instagram.com/reel/DKIilVlspCp/?igsh=YjNkZGI0dW5ma3Rs" class="video-social-link" target="_blank" rel="noopener noreferrer">
+                        Ver en Instagram <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </article>
+             <article class="video-card" data-video-src="videos/TIKAL2.mp4">
+                <div class="video-thumbnail">
+                    <img src="files/TIKAL2.jpg"
+                        alt="Miniatura del video 3">
+                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">Casas color pastel</h3>
+                    <a href="https://www.instagram.com/reel/DMgKVVbCq9L/?igsh=bWx2dDE1YzNzMmZm" class="video-social-link" target="_blank" rel="noopener noreferrer">
+                        Ver en Instagram <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </article>
+             <article class="video-card" data-video-src="videos/TIKAL3.mp4">
+                <div class="video-thumbnail">
+                    <img src="files/TIKAL3.jpg"
+                        alt="Miniatura del video 3">
+                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">Bodegas</h3>
+                    <a href="https://www.instagram.com/reel/DN1FwPCQh9C/?igsh=amljMTBjMTUzb3Bl" class="video-social-link" target="_blank" rel="noopener noreferrer">
+                        Ver en Instagram <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </article>
+            <article class="video-card" data-video-src="videos/TIKAL4.mp4">
+                <div class="video-thumbnail">
+                    <img src="files/TIKAL4.jpg"
+                        alt="Miniatura del video 3">
+                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">Casas Coloniales</h3>
+                    <a href="https://www.instagram.com/reel/DKcyxAPNMZ8/?igsh=NDJxdGp5Z2ljbW5n" class="video-social-link" target="_blank" rel="noopener noreferrer">
+                        Ver en Instagram <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </article>
         </div>
-        <nav class="pagination videos-pagination fade-in" aria-label="Páginas de videos">
+        <nav class="pagination videos-pagination fade-in" aria-label="Páginas de videos" data-items-per-page="4">
         </nav>
     </section>
 

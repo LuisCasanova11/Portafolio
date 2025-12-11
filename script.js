@@ -63,14 +63,22 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
     const grid = document.querySelector(gridClass);
     if (!grid) return;
 
-    const allItems = Array.from(grid.querySelectorAll(cardClass));
+    const allItems = Array.from(grid.querySelectorAll(cardClass)).filter(item => item.style.display !== 'none');
     const paginationContainer = document.querySelector(paginationClass);
+    
+    if (!paginationContainer) return;
+
+    // Limpiar paginación anterior
+    paginationContainer.innerHTML = '';
+
     const totalPages = Math.ceil(allItems.length / itemsPerPage);
 
     if (totalPages <= 1) {
-        if (paginationContainer) paginationContainer.style.display = 'none';
+        paginationContainer.style.display = 'none';
         return;
     }
+
+    paginationContainer.style.display = 'block';
 
     function showPage(page) {
         allItems.forEach(item => item.style.display = 'none');
@@ -79,22 +87,66 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
         const endIndex = startIndex + itemsPerPage;
         allItems.slice(startIndex, endIndex).forEach(item => item.style.display = 'block');
 
-        const dots = paginationContainer.querySelectorAll('.pagination-dot');
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index + 1 === page);
+        const buttons = paginationContainer.querySelectorAll('.pagination-btn');
+        buttons.forEach((btn, index) => {
+            btn.classList.toggle('active', index + 1 === page);
+            btn.setAttribute('aria-current', index + 1 === page ? 'page' : 'false');
         });
+        
+        // Scroll suave a la sección de proyectos
+        if (paginationClass === '.proyectos-pagination') {
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
+    // Crear botones de navegación
+    const navContainer = document.createElement('div');
+    navContainer.className = 'pagination-nav';
+    
+    // Botón anterior
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'pagination-arrow-btn prev-btn';
+    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevBtn.setAttribute('aria-label', 'Página anterior');
+    prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const currentActive = paginationContainer.querySelector('.pagination-btn.active');
+        if (currentActive) {
+            const currentPage = parseInt(currentActive.textContent);
+            if (currentPage > 1) showPage(currentPage - 1);
+        }
+    });
+    navContainer.appendChild(prevBtn);
+
+    // Botones numerados
     for (let i = 1; i <= totalPages; i++) {
-        const dot = document.createElement('span');
-        dot.classList.add('pagination-dot');
-        dot.addEventListener('click', (e) => {
+        const btn = document.createElement('button');
+        btn.classList.add('pagination-btn');
+        btn.textContent = i;
+        btn.setAttribute('aria-label', `Página ${i}`);
+        btn.addEventListener('click', (e) => {
             e.stopPropagation();
             showPage(i);
         });
-        paginationContainer.appendChild(dot);
+        navContainer.appendChild(btn);
     }
 
+    // Botón siguiente
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'pagination-arrow-btn next-btn';
+    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextBtn.setAttribute('aria-label', 'Página siguiente');
+    nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const currentActive = paginationContainer.querySelector('.pagination-btn.active');
+        if (currentActive) {
+            const currentPage = parseInt(currentActive.textContent);
+            if (currentPage < totalPages) showPage(currentPage + 1);
+        }
+    });
+    navContainer.appendChild(nextBtn);
+
+    paginationContainer.appendChild(navContainer);
     showPage(1);
 }
 
@@ -104,9 +156,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const elementsToFadeIn = document.querySelectorAll('.fade-in');
     elementsToFadeIn.forEach(el => fadeInObserver.observe(el));
 
-    setupPagination('.proyectos-grid', '.proyecto-card', '.proyectos-pagination', 3);
+    // Filtrado de proyectos
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const proyectoCards = document.querySelectorAll('.proyecto-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            
+            // Actualizar botón activo
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filtrar cards
+            proyectoCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-company') === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Reiniciar paginación
+            setupPagination('.proyectos-grid', '.proyecto-card', '.proyectos-pagination', 4);
+        });
+    });
+
+    setupPagination('.proyectos-grid', '.proyecto-card', '.proyectos-pagination', 4);
     setupPagination('.cuentas-grid', '.cuenta-card', '.cuentas-pagination', 4);
-    setupPagination('.videos-grid', '.video-card', '.videos-pagination', 2);
+    setupPagination('.videos-grid', '.video-card', '.videos-pagination', 4);
 
     // --- Lógica del carrusel de logos ---
     const scroller = document.querySelector('.logos-scroller');
