@@ -1,3 +1,8 @@
+// Evitar que el navegador restaure la posición de scroll por defecto
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
 const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
@@ -50,9 +55,9 @@ darkModeToggle.addEventListener("click", () => {
 
     if (document.body.classList.contains("dark-mode")) {
         localStorage.setItem("theme", "dark");
-    } else {
+        } else {
         localStorage.setItem("theme", "light");
-    }
+        }
 });
 
 if (localStorage.getItem("theme") === "dark") {
@@ -151,6 +156,10 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Si no hay hash en la URL, garantizar que la página empiece desde arriba
+    if (!location.hash) {
+        window.scrollTo(0, 0);
+    }
     navHighlighter();
 
     const elementsToFadeIn = document.querySelectorAll('.fade-in');
@@ -179,6 +188,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Reiniciar paginación
             setupPagination('.proyectos-grid', '.proyecto-card', '.proyectos-pagination', 4);
+        });
+    });
+
+    // Interceptar enlaces de anclaje para evitar que el hash quede en la URL
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#') return; // Ignorar los simples '#'
+
+        const targetEl = document.querySelector(href);
+        if (!targetEl) return; // Si el selector no existe, permitir comportamiento por defecto
+
+        anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Cerrar menú móvil si está abierto
+            if (navLinks.classList.contains('active')) navLinks.classList.remove('active');
+            // Desplazar suavemente a la sección
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Eliminar hash de la URL para evitar que recargar mantenga la posición
+            history.replaceState(null, '', location.pathname + location.search);
+            // Actualizar resaltado del nav poco después
+            setTimeout(navHighlighter, 300);
         });
     });
 
@@ -303,4 +333,18 @@ const fadeInObserver = new IntersectionObserver((entries, observer) => {
 }, {
     rootMargin: '0px',
     threshold: 0.1
+});
+
+// También forzar inicio en la parte superior cuando la página se muestra (back/forward restore)
+window.addEventListener('pageshow', (event) => {
+    if (!location.hash) {
+        window.scrollTo(0, 0);
+    }
+});
+
+// Asegurar que antes de recargar o salir, el scroll esté al inicio para evitar restauraciones indeseadas
+window.addEventListener('beforeunload', () => {
+    if (!location.hash) {
+        window.scrollTo(0, 0);
+    }
 });
