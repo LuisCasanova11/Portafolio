@@ -1284,36 +1284,71 @@ body.dark-mode .experience-section .experience-inner::before {
 .experience-title,
 .education-title,
 .proyectos-title,
-.videos-title {
+.videos-title,
+.services-title,
+.software-title,
+.footer-title {
     font-size: 3rem;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 72px;
     color: var(--text-dark);
     position: relative;
     padding-bottom: 20px;
+    letter-spacing: -0.01em;
+    line-height: 1.02;
+}
+
+@media (max-width: 992px) {
+    .experience-title,
+    .education-title,
+    .proyectos-title,
+    .videos-title,
+    .services-title,
+    .software-title,
+    .footer-title { font-size: 2.4rem; margin-bottom: 48px; }
+}
+
+@media (min-width: 1440px) {
+    .experience-title,
+    .education-title,
+    .proyectos-title,
+    .videos-title,
+    .services-title,
+    .software-title,
+    .footer-title { font-size: 3.4rem; }
 }
 
 .experience-title span,
 .education-title span,
 .proyectos-title span,
-.videos-title span {
-    color: var(--accent-hot);
+.videos-title span,
+.services-title span,
+.software-title span,
+.footer-title span {
+    color: var(--accent-soft);
+    font-weight: 800;
 }
 
 .experience-title::after,
 .education-title::after,
 .proyectos-title::after,
-.videos-title::after {
+.videos-title::after,
+.services-title::after,
+.software-title::after,
+.footer-title::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    width: 72px;
     height: 4px;
-    background-color: var(--accent-hot);
+    background-image: linear-gradient(90deg, var(--accent-hot), var(--accent-soft));
     border-radius: 2px;
+    transition: transform 420ms cubic-bezier(.22,1,.36,1), opacity 300ms ease;
+    opacity: 0.95;
 }
 
 .timeline {
@@ -1388,6 +1423,15 @@ body.dark-mode .experience-section .experience-inner::before {
     .timeline.fade-in .timeline-item,
     .timeline-item .timeline-node,
     .timeline-item .timeline-date { transition: none; animation: none; transform: none; }
+}
+
+/* Animate title underline when the title (with .fade-in) becomes visible */
+.fade-in.visible::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fade-in.visible::after { transition: none; transform: translateX(-50%) scaleX(1); }
 }
 
 .timeline-item {
