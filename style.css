@@ -1345,6 +1345,55 @@ body.dark-mode .experience-section .experience-inner::before {
     position: relative;
 }
 
+/* Minimal staggered entrance, default hidden until visible */
+.timeline.fade-in .timeline-item {
+    opacity: 0;
+    transform: translateY(8px); /* slight drop */
+}
+.timeline.fade-in .timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* initial X offset for subtle zig, but keep minimal */
+.timeline.fade-in .timeline-item:nth-child(odd) { transform: translateX(-14px) translateY(8px); }
+.timeline.fade-in .timeline-item:nth-child(even) { transform: translateX(14px) translateY(8px); }
+.timeline.fade-in .timeline-item.visible:nth-child(odd),
+.timeline.fade-in .timeline-item.visible:nth-child(even) { transform: translateY(0) translateX(0); }
+
+/* Micro-pop animation for the node when the item becomes visible */
+.timeline-item .timeline-node { transform-origin: center; }
+.timeline-item.visible .timeline-node {
+    animation: timelineNodePop 360ms cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes timelineNodePop {
+    0% { transform: scale(0.92); }
+    60% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+/* Subtle date appearing */
+.timeline-item .timeline-date {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 340ms ease, transform 340ms ease;
+}
+.timeline-item.visible .timeline-date {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Keep everything low-motion for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .timeline.fade-in .timeline-item,
+    .timeline-item .timeline-node,
+    .timeline-item .timeline-date { transition: none; animation: none; transform: none; }
+}
+
+.timeline-item {
+    transition: transform 300ms cubic-bezier(.22,1,.36,1), box-shadow 300ms ease, background 250ms ease;
+}
+
 .timeline-item:last-child {
     margin-bottom: 0;
 }
@@ -1371,26 +1420,50 @@ body.dark-mode .experience-section .experience-inner::before {
     padding-top: 10px;
 }
 .timeline-node {
-    width: 20px;
-    height: 20px;
-    background-color: var(--bg-card);
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
     border: 2px solid var(--accent-hot);
     border-radius: 50%;
-    transition: transform 0.3s ease;
+    box-shadow: none;
+    transition: transform 180ms ease, border-color 180ms ease;
 }
 
 .timeline-item:hover .timeline-node {
-    transform: scale(1.2);
+    transform: scale(1.08);
 }
 
 .timeline-item.current .timeline-node {
-    background-color: var(--text-dark);
-    border-color: var(--text-dark);
-    transform: scale(1.2);
+    background-color: var(--accent-hot);
+    border-color: var(--accent-hot);
+    transform: scale(1.06);
 }
 
 .timeline-right {
     text-align: left;
+}
+
+/* Card layout for timeline details */
+.timeline-right, .timeline-left {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: transparent; /* keep minimal */
+    border: none;
+    box-shadow: none;
+}
+
+/* Accent strip near the node on larger screens */
+.timeline-left::after, .timeline-right::after { display: none; }
+
+/* Hover lift for each timeline item */
+.timeline-item:hover .timeline-right, .timeline-item:hover .timeline-left {
+    transform: none; /* remove lift for minimal look */
+}
+
+/* Alternate layout on large screens for a zig-zag visual */
+@media (min-width: 1100px) {
+    /* Keep layout symmetrical but minimal; no zig-zag shifts */
+    .timeline-item { grid-template-columns: 1fr 80px 1fr; }
 }
 
 .timeline-post-title {
@@ -1415,6 +1488,28 @@ body.dark-mode .experience-section .experience-inner::before {
 .timeline-post-desc li {
     margin-bottom: 4px;
     color: var(--text-secondary);
+}
+
+/* Small check-style bullets */
+.timeline-post-desc ul { list-style: none; }
+.timeline-post-desc li { position: relative; padding-left: 18px; }
+.timeline-post-desc li::before { content: ''; position: absolute; left: 4px; top: 8px; width: 6px; height: 6px; background: var(--accent-hot); border-radius: 50%; }
+
+/* Highlight current item */
+.timeline-item.current .timeline-right,
+.timeline-item.current .timeline-left {
+    border-color: var(--accent-hot);
+    box-shadow: 0 20px 48px rgba(240,108,136,0.06);
+}
+
+/* small company accent */
+.timeline-company {
+    position: relative;
+}
+.timeline-company::before { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .timeline-item, .timeline-node, .timeline-right, .timeline-left { transition: none; transform: none; }
 }
 
 @media (max-width: 768px) {

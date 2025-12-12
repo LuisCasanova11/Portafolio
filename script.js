@@ -182,6 +182,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const elementsToFadeIn = document.querySelectorAll('.fade-in');
     elementsToFadeIn.forEach(el => fadeInObserver.observe(el));
 
+    // Timeline items: staggered reveal when they enter the viewport
+    const timelineItems = document.querySelectorAll('.timeline .timeline-item');
+    if (timelineItems.length) {
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const el = entry.target;
+                const idx = Array.from(timelineItems).indexOf(el);
+                if (entry.isIntersecting) {
+                    // apply a staggered delay based on index
+                    el.style.transitionDelay = `${Math.min(10, idx) * 80}ms`;
+                    el.classList.add('visible');
+                } else {
+                    el.classList.remove('visible');
+                    el.style.transitionDelay = '';
+                }
+            });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+
+        timelineItems.forEach(item => timelineObserver.observe(item));
+    }
+
     // Filtrado de proyectos
     const filterBtns = document.querySelectorAll('.filter-btn');
     const proyectoCards = document.querySelectorAll('.proyecto-card');
