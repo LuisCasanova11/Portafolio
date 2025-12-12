@@ -203,6 +203,30 @@ document.addEventListener('DOMContentLoaded', () => {
         timelineItems.forEach(item => timelineObserver.observe(item));
     }
 
+    // Education grid: stagger reveal of education cards for a refined effect
+    const educationGridEl = document.querySelector('.education-grid');
+    if (educationGridEl) {
+        const eduObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const cards = Array.from(educationGridEl.querySelectorAll('.education-card')).filter(c => getComputedStyle(c).display !== 'none');
+                const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (entry.isIntersecting) {
+                    cards.forEach((card, i) => {
+                        if (reduceMotion) {
+                            card.classList.add('visible');
+                        } else {
+                            setTimeout(() => card.classList.add('visible'), i * 90);
+                        }
+                    });
+                } else {
+                    cards.forEach(card => card.classList.remove('visible'));
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+        eduObserver.observe(educationGridEl);
+    }
+
     // Filtrado de proyectos
     const filterBtns = document.querySelectorAll('.filter-btn');
     const proyectoCards = document.querySelectorAll('.proyecto-card');
@@ -283,6 +307,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 toggleCoursesBtn.textContent = 'Ver menos';
             } else {
                 toggleCoursesBtn.textContent = 'Ver más';
+            }
+            // After toggling, reveal visible cards with stagger (if not reduced-motion)
+            const cards = Array.from(educationGrid.querySelectorAll('.education-card')).filter(c => getComputedStyle(c).display !== 'none');
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduceMotion) {
+                cards.forEach(card => card.classList.add('visible'));
+            } else {
+                cards.forEach((card, i) => {
+                    card.classList.remove('visible');
+                    setTimeout(() => card.classList.add('visible'), 60 + (i * 80));
+                });
             }
         });
     }
