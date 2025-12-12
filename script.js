@@ -21,6 +21,21 @@ allNavLinks.forEach(link => {
     });
 });
 
+let navIndicator; // element for sliding indicator
+function updateNavIndicator() {
+    if (!navIndicator) return;
+    const activeLink = document.querySelector('.nav-links a.active');
+    if (!activeLink) {
+        navIndicator.style.opacity = '0';
+        return;
+    }
+    const linkRect = activeLink.getBoundingClientRect();
+    const containerRect = navLinks.getBoundingClientRect();
+    navIndicator.style.width = `${linkRect.width}px`;
+    navIndicator.style.left = `${linkRect.left - containerRect.left}px`;
+    navIndicator.style.opacity = '1';
+}
+
 const navHighlighter = () => {
     let scrollY = window.pageYOffset;
     let currentSectionId = "";
@@ -46,6 +61,8 @@ const navHighlighter = () => {
     if (portfolioSections.includes(currentSectionId)) {
         portfolioToggle.classList.add('active');
     }
+    // Move sliding indicator
+    updateNavIndicator();
 };
 
 window.addEventListener('scroll', navHighlighter);
@@ -224,6 +241,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const duplicatedItem = item.cloneNode(true);
             scroller.appendChild(duplicatedItem);
         });
+    }
+
+    // Crear el indicador deslizable debajo del menu
+    if (navLinks) {
+        navIndicator = document.createElement('span');
+        navIndicator.className = 'nav-indicator';
+        navLinks.appendChild(navIndicator);
+        updateNavIndicator();
+        window.addEventListener('resize', updateNavIndicator);
     }
     // --- Lógica del botón "Ver más" para Cursos ---
     const toggleCoursesBtn = document.getElementById('toggle-courses-btn');

@@ -84,22 +84,13 @@ body {
 .nav-links {
     list-style: none;
     display: flex;
+    position: relative; /* needed for the sliding indicator */
 }
 
 .nav-links li {
     margin: 0 10px;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-dark);
-    padding: 10px 20px;
-    border-radius: 20px;
-    transition: background-color 0.3s ease;
-    display: flex;
-    white-space: nowrap;
-    align-items: center;
-}
 
 .nav-links li.dropdown {
     position: relative;
@@ -158,10 +149,38 @@ body {
     margin-right: 8px;
 }
 
-.nav-links a.active,
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: color 220ms cubic-bezier(.22,1,.36,1), transform 180ms ease, background-color 200ms ease;
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+}
+
 .nav-links a:hover {
-    background-color: var(--accent-hot);
-    color: white;
+    color: var(--accent-hot);
+    transform: translateY(-3px);
+}
+
+.nav-links a.active {
+    color: var(--accent-hot);
+    font-weight: 700;
+}
+
+/* Sliding underline indicator */
+.nav-indicator {
+    position: absolute;
+    bottom: 10px;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(240,108,136,1), rgba(240,108,136,0.85));
+    border-radius: 999px;
+    transition: left 300ms cubic-bezier(.22,1,.36,1), width 300ms cubic-bezier(.22,1,.36,1), opacity 200ms ease;
+    will-change: left, width;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .menu-toggle {
@@ -1998,4 +2017,6 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     .footer-title { font-size: 2rem; }
     .footer-text { font-size: 1rem; }
     .footer-socials a { font-size: 1.6rem; margin: 0 12px; }
+    /* Hide desktop indicator on mobile */
+    .nav-indicator { display: none; }
 }
