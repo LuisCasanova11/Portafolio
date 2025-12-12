@@ -15,6 +15,7 @@
     --border-glass: #f8d3da80;
 
     --header-h: 70px;
+    --overlay-bg: rgba(255, 255, 255, 0.6);
 }
 
 body.dark-mode {
@@ -30,6 +31,7 @@ body.dark-mode {
     --shadow-color: rgba(0, 0, 0, 0.2);
     --bg-glass: rgba(45, 35, 41, 0.5);
     --border-glass: rgba(90, 69, 76, 0.5);
+    --overlay-bg: rgba(24, 22, 24, 0.6);
 }
 
 * {
@@ -51,6 +53,7 @@ body {
     text-rendering: optimizeLegibility; /* Improved text rendering */
     -webkit-font-smoothing: antialiased; /* Smoother font rendering on WebKit browsers */
     -moz-osx-font-smoothing: grayscale; /* Smoother font rendering on Firefox */
+    overflow-x: hidden; /* prevent horizontal scroll due to full-bleed sections */
 }
 
 .navbar {
@@ -220,10 +223,12 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 .hero {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    min-height: calc(100vh - 100px);
-    padding: 140px 5% 2rem;
+    align-items: center; /* center vertically */
+    /* Slightly enlarge hero to occupy more visual area */
+    min-height: calc(100vh - var(--header-h) + 80px);
+    padding: calc(var(--header-h) + 24px) 5% 2rem;
     text-align: center;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -1032,9 +1037,81 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 }
 
 .experience-section {
-    background-color: var(--bg-card);
-    padding: 100px 20px;
-    font-family: 'Poppins', sans-serif;
+    position: relative;
+    margin-top: -140px; /* overlay the hero */
+    z-index: 95; /* below navbar z-index but above hero */
+    /* full bleed across viewport */
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    padding: 0; /* inner wrapper handles padding */
+}
+/* Inner centered card inside full-width section */
+.experience-section .experience-inner {
+    width: 100%;
+    background: transparent; /* use pseudo-element for gradient + blur */
+    box-sizing: border-box;
+    /* make the inner backdrop extend edge-to-edge as well */
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    position: relative;
+    overflow: visible;
+}
+
+.experience-section .experience-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 18px;
+    /* gradient from transparent at top to overlay color at bottom, so it blends with hero */
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 18%, var(--overlay-bg) 60%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: transform 350ms ease, opacity 300ms ease;
+}
+
+/* Dark mode adjustments for the overlay pseudo-element */
+body.dark-mode .experience-section .experience-inner::before {
+    background: linear-gradient(180deg, rgba(45,35,41,0) 0%, rgba(45,35,41,0.18) 18%, var(--overlay-bg) 60%);
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* The content card centered inside the full-width backdrop */
+.experience-section .experience-content {
+    width: 100%;
+    margin: 0;
+    padding: 64px 5vw; /* use viewport padding to keep spacing */
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-glass);
+    background: rgba(255,255,255,0.02); /* slight subtle background so content sits above blur */
+}
+
+@media (max-width: 900px) {
+    .experience-section {
+        margin-top: -70px;
+    }
+    .experience-section .experience-content {
+        padding: 36px 6vw;
+        width: 100%;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.03);
+    }
+}
+
+/* Make the overlay smaller on narrow screens */
+@media (max-width: 900px) {
+    .experience-section {
+        margin-top: -70px;
+    }
 }
 
 .experience-title,
@@ -1074,8 +1151,9 @@ body.dark-mode .dark-mode-toggle .fa-moon {
 
 .timeline {
     position: relative;
-    max-width: 900px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: none;
+    margin: 0;
 }
 
 .timeline::before {
