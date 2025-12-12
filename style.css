@@ -16,6 +16,14 @@
 
     --header-h: 70px;
     --overlay-bg: rgba(255, 255, 255, 0.6);
+    --bg-grad-1: #fff7f8;
+    --bg-grad-2: #fff1f3;
+    --bg-dark-grad-1: #22191b;
+    --bg-dark-grad-2: #2d2329;
+    --blob-1: rgba(240,108,136,0.16);
+    --blob-2: rgba(244,167,185,0.12);
+    --blob-3: rgba(181,131,144,0.10);
+    --grain-opacity: 0.06;
 }
 
 body.dark-mode {
@@ -54,6 +62,102 @@ body {
     -webkit-font-smoothing: antialiased; /* Smoother font rendering on WebKit browsers */
     -moz-osx-font-smoothing: grayscale; /* Smoother font rendering on Firefox */
     overflow-x: hidden; /* prevent horizontal scroll due to full-bleed sections */
+}
+
+/* Background layer: gradient, animated blurred blobs and subtle grain */
+.background-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--bg-grad-1), var(--bg-grad-2));
+    transition: background 300ms ease;
+}
+
+body.dark-mode .background-layer {
+    background: linear-gradient(180deg, var(--bg-dark-grad-1), var(--bg-dark-grad-2));
+}
+
+.background-layer .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    transform: translate3d(0,0,0);
+    will-change: transform, opacity;
+    opacity: 0.9;
+}
+
+.background-layer .b1 {
+    width: 520px;
+    height: 520px;
+    left: -8%;
+    top: -6%;
+    background: var(--blob-1);
+    animation: float1 22s ease-in-out infinite;
+}
+
+.background-layer .b2 {
+    width: 420px;
+    height: 420px;
+    right: -6%;
+    top: 18%;
+    background: var(--blob-2);
+    animation: float2 26s ease-in-out infinite;
+}
+
+.background-layer .b3 {
+    width: 360px;
+    height: 360px;
+    left: 10%;
+    bottom: -12%;
+    background: var(--blob-3);
+    animation: float3 30s ease-in-out infinite;
+}
+
+/* subtle moving noise/grain */
+.background-layer .grain {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(0,0,0,var(--grain-opacity)) 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+}
+
+@keyframes float1 {
+    0% { transform: translateY(0) translateX(0) scale(1); }
+    50% { transform: translateY(18px) translateX(6px) scale(1.02); }
+    100% { transform: translateY(0) translateX(0) scale(1); }
+}
+@keyframes float2 {
+    0% { transform: translateY(0) translateX(0) scale(1); }
+    50% { transform: translateY(-24px) translateX(-12px) scale(1.03); }
+    100% { transform: translateY(0) translateX(0) scale(1); }
+}
+@keyframes float3 {
+    0% { transform: translateY(0) translateX(0) scale(1); }
+    50% { transform: translateY(28px) translateX(-10px) scale(1.01); }
+    100% { transform: translateY(0) translateX(0) scale(1); }
+}
+
+@media (max-width: 900px) {
+    .background-layer .b1 { width: 320px; height: 320px; left: -12%; top: -6%; filter: blur(64px); }
+    .background-layer .b2 { width: 260px; height: 260px; right: -6%; top: 14%; filter: blur(54px); }
+    .background-layer .b3 { width: 240px; height: 240px; left: 6%; bottom: -8%; filter: blur(54px); }
+    .background-layer .grain { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .background-layer .b1,
+    .background-layer .b2,
+    .background-layer .b3 { animation: none; }
+}
+
+/* Ensure main content stacks above background-layer */
+.main, main, footer, .hero, section, .experience-section .experience-inner, .experience-section .experience-content {
+    position: relative;
+    z-index: 1;
 }
 
 .navbar {
