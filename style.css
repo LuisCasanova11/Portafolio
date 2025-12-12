@@ -1030,73 +1030,147 @@ body.dark-mode .hello-bubble {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
+
+/* Only add extra spacing for education pagination to avoid affecting other paginations */
+.education-section .pagination { margin-top: 30px; }
 
 .pagination-nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
 .pagination-btn {
-    min-width: 40px;
-    height: 40px;
-    padding: 0 12px;
-    background-color: var(--bg-element);
-    color: var(--text-dark);
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
+    width: 36px; /* hit area */
+    height: 36px; /* hit area */
+    padding: 0;
+    background-color: transparent;
+    color: transparent; /* hide text visually, keep aria-label for screen readers */
+    border: none; /* visual dot handled by pseudo-element */
+    border-radius: 999px;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0; /* visually hide numbers */
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
+    transition: transform 180ms ease, background-color 200ms ease, border-color 200ms ease;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+}
+
+.pagination-btn::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    display: inline-block;
+    background: var(--border-color);
+    transition: transform 160ms ease, background-color 160ms ease;
 }
 
 .pagination-btn:hover:not(.active) {
-    background-color: var(--accent-soft);
-    border-color: var(--accent-soft);
-    color: white;
-    transform: translateY(-2px);
+    transform: scale(1.06);
+}
+
+.pagination-btn:hover:not(.active)::before {
+    background-color: rgba(0,0,0,0.06);
 }
 
 .pagination-btn.active {
+    transform: scale(1.15);
+}
+
+.pagination-btn.active::before {
     background-color: var(--accent-hot);
-    color: white;
-    border-color: var(--accent-hot);
-    box-shadow: 0 4px 12px rgba(240, 108, 136, 0.3);
-    transform: scale(1.05);
+    transform: scale(1.25);
+}
+
+/* Desktop: show numbers instead of dots */
+@media (min-width: 992px) {
+    .pagination-btn {
+        width: auto;
+        height: 40px;
+        padding: 0 12px;
+        font-size: 0.95rem;
+        color: var(--text-dark);
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-element);
+        border-radius: 8px;
+        min-width: 44px;
+    }
+
+    .pagination-btn::before { display: none; }
+
+    .pagination-btn.active {
+        background-color: var(--accent-hot);
+        color: white;
+        border-color: var(--accent-hot);
+        transform: scale(1.05);
+    }
+
+    .pagination-btn:hover:not(.active) {
+        background-color: var(--accent-soft);
+        border-color: var(--accent-soft);
+        color: white;
+        transform: translateY(-2px);
+    }
+}
+
+.pagination-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 6px rgba(240,108,136,0.08);
+    transform: scale(1.15);
+}
+
+/* Mobile touch-friendly dots */
+@media (max-width: 768px) {
+    .pagination-btn {
+        width: 30px;
+        height: 30px;
+    }
+    .pagination-btn::before {
+        width: 10px;
+        height: 10px;
+    }
 }
 
 .pagination-arrow-btn {
-    width: 40px;
-    height: 40px;
-    background-color: var(--bg-element);
-    color: var(--text-dark);
-    border: 2px solid var(--border-color);
+    width: 32px;
+    height: 32px;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: none;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.95rem;
+    transition: color 160ms ease, transform 140ms ease;
 }
 
 .pagination-arrow-btn:hover {
-    background-color: var(--accent-hot);
-    border-color: var(--accent-hot);
-    color: white;
-    transform: translateY(-2px);
+    color: var(--accent-hot);
+    transform: translateY(-3px);
 }
 
 .pagination-arrow-btn:active {
     transform: translateY(0);
+}
+
+.pagination-arrow-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 6px rgba(240,108,136,0.08);
+}
+
+.pagination-arrow-btn[disabled] {
+    opacity: 0.4;
+    color: var(--text-secondary);
+    pointer-events: none;
+    transform: none;
 }
 
 @media (max-width: 768px) {
@@ -1105,15 +1179,15 @@ body.dark-mode .hello-bubble {
     }
 
     .pagination-btn {
-        min-width: 36px;
-        height: 36px;
-        padding: 0 8px;
-        font-size: 0.85rem;
+        width: 10px;
+        height: 10px;
+        padding: 0;
+        font-size: 0;
     }
 
     .pagination-arrow-btn {
-        width: 36px;
-        height: 36px;
+        width: 28px;
+        height: 28px;
         font-size: 0.9rem;
     }
 }
@@ -1291,10 +1365,10 @@ body.dark-mode .experience-section .experience-inner::before {
     font-size: 3rem;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 72px;
+    margin-bottom: 48px;
     color: var(--text-dark);
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
     letter-spacing: -0.01em;
     line-height: 1.02;
 }
@@ -1586,13 +1660,13 @@ body.dark-mode .experience-section .experience-inner::before {
 
 .education-section {
     background-color: var(--bg-section-alt);
-    padding: 100px 20px;
+    padding: 80px 20px;
     font-family: 'Poppins', sans-serif;
 }
 .education-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    gap: 24px;
     max-width: 1100px;
     margin: 0 auto;
 }
@@ -1601,20 +1675,14 @@ body.dark-mode .experience-section .experience-inner::before {
     .education-grid { grid-template-columns: repeat(3, 1fr); max-width: 1320px; gap: 28px; }
 }
 
-.education-grid .education-card:nth-child(n + 4) {
-    display: none;
-}
-
-.education-grid.show-all .education-card {
-    display: flex;
-}
+/* Pagination controls visibility now handled by JS */
 
 .education-card {
     position: relative;
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 14px;
-    padding: 22px;
+    padding: 22px 22px 22px 36px; /* add left padding for accent */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1646,13 +1714,13 @@ body.dark-mode .experience-section .experience-inner::before {
 .education-card::before {
     content: '';
     position: absolute;
-    left: 16px;
-    top: 16px;
-    bottom: 16px;
-    width: 4px;
-    border-radius: 8px;
-    background: linear-gradient(180deg, rgba(240,108,136,0.18), rgba(244,167,185,0.12));
-    opacity: 0.8;
+    left: 18px;
+    top: 14px;
+    bottom: 14px;
+    width: 3px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, rgba(240,108,136,0.28), rgba(244,167,185,0.14));
+    opacity: 0.95;
 }
 
 .education-card.visible {
@@ -1701,27 +1769,7 @@ body.dark-mode .experience-section .experience-inner::before {
     color: var(--text-secondary);
 }
 
-.see-more-container {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.btn-secondary-outline {
-    background-color: transparent;
-    color: var(--accent-hot);
-    border: 2px solid var(--accent-hot);
-    padding: 10px 30px;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-secondary-outline:hover {
-    background-color: var(--accent-hot);
-    color: white;
-    transform: translateY(-3px);
-}
+/* Old 'Ver más' toggle styles removed; pagination markup uses .pagination */
 
 @media (max-width: 768px) {
     .education-section {
@@ -1748,7 +1796,7 @@ body.dark-mode .experience-section .experience-inner::before {
            =========================== */
 .software-strip {    
     background-color: var(--bg-section-alt);
-    padding: 80px 0;
+    padding: 60px 0;
     overflow: hidden;
     position: relative;
 }
@@ -1817,62 +1865,79 @@ body.dark-mode .experience-section .experience-inner::before {
 
 .proyectos-section {
     background-color: var(--bg-card);
-    padding: 100px 20px;
+    padding: 80px 20px;
 }
 
-.proyectos-filters {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 50px;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.filter-btn {
-    padding: 10px 24px;
-    background-color: var(--bg-element);
-    color: var(--text-dark);
-    border: 2px solid var(--border-color);
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.filter-btn:hover {
-    background-color: var(--accent-soft);
-    border-color: var(--accent-soft);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.filter-btn.active {
-    background-color: var(--accent-hot);
-    color: white;
-    border-color: var(--accent-hot);
-    box-shadow: 0 4px 12px rgba(240, 108, 136, 0.3);
-}
+/* Filtros eliminados */
 
 .proyectos-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
     max-width: 1200px;
-    margin: 0 auto 60px;
+    margin: 0 auto 40px;
 }
 
 @media (min-width: 1200px) {
-    .proyectos-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
+    .proyectos-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
-.proyecto-card,
-.video-card {
+/* Card de diseño: imagen protagonista, borde suave y hover moderno */
+.proyecto-card {
+    background: var(--bg-card);
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 240ms cubic-bezier(.22,1,.36,1), box-shadow 240ms ease, border-color 200ms ease;
+}
+
+.proyecto-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+    border-color: var(--accent-soft);
+}
+
+/* Marco de imagen compatible con distintos aspect ratios */
+.proyecto-imagen {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5; /* más vertical para diseños */
+    overflow: hidden;
+    background: var(--bg-section-alt);
+}
+
+.proyecto-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* recorte elegante */
+    object-position: center; /* centra el foco */
+    transition: transform 420ms cubic-bezier(.22,1,.36,1), filter 220ms ease;
+}
+
+.proyecto-card:hover .proyecto-imagen img {
+    transform: scale(1.06);
+}
+
+/* Overlay sutil con información (opcional, mantenido limpio) */
+.proyecto-card .proyecto-imagen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.24));
+    opacity: 0.0; /* no mostrar por defecto, mantener minimalista */
+    transition: opacity 240ms ease;
+}
+
+.proyecto-card:hover .proyecto-imagen::after {
+    opacity: 0.2;
+}
+
+/* Eliminar metadata de texto para mantener solo imagen */
+.proyecto-info { display: none; }
+
+/* Asegurar que estilos de video se conserven */
+.video-card { 
     background-color: var(--bg-card);
     border-radius: 20px;
     overflow: hidden;
@@ -1885,22 +1950,11 @@ body.dark-mode .experience-section .experience-inner::before {
     flex-direction: column;
 }
 
-.proyecto-card:hover,
 .video-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
-.proyecto-link,
-.cuenta-link {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.proyecto-imagen,
 .video-thumbnail {
     width: 100%;
     height: 200px;
@@ -1909,7 +1963,6 @@ body.dark-mode .experience-section .experience-inner::before {
     flex-shrink: 0;
 }
 
-.proyecto-imagen img,
 .video-thumbnail img {
     width: 100%;
     height: 100%;
@@ -1917,12 +1970,8 @@ body.dark-mode .experience-section .experience-inner::before {
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.proyecto-card:hover img,
-.video-card:hover img {
-    transform: scale(1.08);
-}
+.video-card:hover img { transform: scale(1.08); }
 
-.proyecto-info,
 .video-info {
     padding: 18px 16px;
     color: var(--text-dark);
@@ -1933,7 +1982,6 @@ body.dark-mode .experience-section .experience-inner::before {
     justify-content: space-between;
 }
 
-.proyecto-titulo,
 .video-titulo {
     font-size: 1.1rem;
     font-weight: 700;
@@ -1942,27 +1990,21 @@ body.dark-mode .experience-section .experience-inner::before {
     line-height: 1.3;
 }
 
-.proyecto-categoria {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    opacity: 0.9;
-}
-
 .proyectos-pagination {
     margin-top: 40px;
 }
 
 .cuentas-section {
     background-color: var(--bg-section-alt);
-    padding: 100px 20px;
+    padding: 80px 20px;
 }
 
 .cuentas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    gap: 24px;
     max-width: 1200px;
-    margin: 0 auto 60px;
+    margin: 0 auto 40px;
 }
 
 .cuenta-card {
@@ -2047,15 +2089,15 @@ body.dark-mode .experience-section .experience-inner::before {
 
 .videos-section {
     background-color: var(--bg-section-alt);
-    padding: 100px 20px;
+    padding: 80px 20px;
 }
 
 .videos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
+    gap: 24px;
     max-width: 1200px;
-    margin: 0 auto 60px;
+    margin: 0 auto 40px;
 }
 
 @media (min-width: 1200px) {
@@ -2460,3 +2502,40 @@ body.dark-mode .experience-section .experience-inner::before {
     .hello-bubble, .hello-bubble img { animation: none; transition: none; }
 }
 .education-card:hover .education-degree { color: var(--text-dark); }
+
+/* Secciones enmarcadas con contenedor visual atractivo */
+.education-section,
+.proyectos-section,
+.cuentas-section,
+.videos-section { position: relative; }
+
+.education-section::before,
+.proyectos-section::before,
+.cuentas-section::before,
+.videos-section::before {
+    content: '';
+    position: absolute;
+    inset: 0; /* cubrir toda la sección */
+    border-radius: 0; /* igual que experiencia: full-bleed */
+    background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.5));
+    border-top: 1px solid var(--border-glass);
+    border-bottom: 1px solid var(--border-glass);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.06);
+    z-index: 0;
+}
+
+body.dark-mode .education-section::before,
+body.dark-mode .proyectos-section::before,
+body.dark-mode .cuentas-section::before,
+body.dark-mode .videos-section::before {
+    background: linear-gradient(180deg, rgba(45,35,41,0.55), rgba(45,35,41,0.45));
+    border-top: 1px solid var(--border-glass);
+    border-bottom: 1px solid var(--border-glass);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+}
+
+/* Asegurar contenido por encima del contenedor decorativo */
+.education-section > *,
+.proyectos-section > *,
+.cuentas-section > *,
+.videos-section > * { position: relative; z-index: 1; }

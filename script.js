@@ -85,7 +85,8 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
     const grid = document.querySelector(gridClass);
     if (!grid) return;
 
-    const allItems = Array.from(grid.querySelectorAll(cardClass)).filter(item => item.style.display !== 'none');
+    const allCards = Array.from(grid.querySelectorAll(cardClass));
+    const activeItems = allCards.filter(item => item.dataset.filtered !== 'true');
     const paginationContainer = document.querySelector(paginationClass);
     
     if (!paginationContainer) return;
@@ -93,9 +94,18 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
     // Limpiar paginación anterior
     paginationContainer.innerHTML = '';
 
-    const totalPages = Math.ceil(allItems.length / itemsPerPage);
+    const totalPages = Math.ceil(activeItems.length / itemsPerPage);
 
     if (totalPages <= 1) {
+        // Mostrar todos los elementos activos y ocultar los filtrados
+        allCards.forEach(item => {
+            if (item.dataset.filtered === 'true') {
+                item.style.display = 'none';
+            } else {
+                item.style.display = '';
+                item.classList.add('visible');
+            }
+        });
         paginationContainer.style.display = 'none';
         return;
     }
@@ -103,11 +113,21 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
     paginationContainer.style.display = 'block';
 
     function showPage(page) {
-        allItems.forEach(item => item.style.display = 'none');
+        // Re-evaluate items in case other filters or dynamic changes were applied
+        const allCardsInGrid = Array.from(grid.querySelectorAll(cardClass));
+        // remove any visible class from all cards to reset animations
+        allCardsInGrid.forEach(i => i.classList.remove('visible'));
+
+        // Use a dataset flag to exclude items filtered out by other UI (ignoring previous inline display from pagination)
+        const paginatableItems = allCardsInGrid.filter(item => item.dataset.filtered !== 'true');
+
+        // hide everything first (inline) to allow CSS to reflow when we clear the inline style
+        allCardsInGrid.forEach(item => item.style.display = 'none');
 
         const startIndex = (page - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        allItems.slice(startIndex, endIndex).forEach(item => item.style.display = 'block');
+        // Clear inline display so CSS controls the card layout (flex/block as defined)
+        paginatableItems.slice(startIndex, endIndex).forEach(item => item.style.display = '');
 
         const buttons = paginationContainer.querySelectorAll('.pagination-btn');
         buttons.forEach((btn, index) => {
@@ -115,10 +135,25 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
             btn.setAttribute('aria-current', index + 1 === page ? 'page' : 'false');
         });
         
-        // Scroll suave a la sección de proyectos
-        if (paginationClass === '.proyectos-pagination') {
-            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        // Scroll desactivado en paginación para evitar saltos de página en cualquier sección
+        // (Si se desea reactivar, usar scrollIntoView aquí de forma condicional)
+
+        // Reveal the newly visible items with the same stagger rule used elsewhere
+        const visibleItems = paginatableItems.slice(startIndex, endIndex);
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        visibleItems.forEach((item, i) => {
+            if (reduceMotion) {
+                item.classList.add('visible');
+            } else {
+                setTimeout(() => item.classList.add('visible'), i * 90);
+            }
+        });
+        // Update prev/next disabled states and respect the current total pages based on currently paginatable items
+        const totalPagesLocal = Math.ceil(paginatableItems.length / itemsPerPage) || 1;
+        const prevBtnLocal = paginationContainer.querySelector('.pagination-arrow-btn.prev-btn');
+        const nextBtnLocal = paginationContainer.querySelector('.pagination-arrow-btn.next-btn');
+        if (prevBtnLocal) prevBtnLocal.disabled = (page === 1);
+        if (nextBtnLocal) nextBtnLocal.disabled = (page === totalPagesLocal);
     }
 
     // Crear botones de navegación
@@ -130,11 +165,11 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
     prevBtn.className = 'pagination-arrow-btn prev-btn';
     prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
     prevBtn.setAttribute('aria-label', 'Página anterior');
-    prevBtn.addEventListener('click', (e) => {
+        prevBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         const currentActive = paginationContainer.querySelector('.pagination-btn.active');
         if (currentActive) {
-            const currentPage = parseInt(currentActive.textContent);
+                const currentPage = parseInt(currentActive.dataset.page || currentActive.textContent);
             if (currentPage > 1) showPage(currentPage - 1);
         }
     });
@@ -144,7 +179,8 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
     for (let i = 1; i <= totalPages; i++) {
         const btn = document.createElement('button');
         btn.classList.add('pagination-btn');
-        btn.textContent = i;
+            btn.textContent = i; // kept for accessibility if visible
+            btn.dataset.page = i; // use dataset to track page without relying on textContent
         btn.setAttribute('aria-label', `Página ${i}`);
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -158,11 +194,11 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
     nextBtn.className = 'pagination-arrow-btn next-btn';
     nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
     nextBtn.setAttribute('aria-label', 'Página siguiente');
-    nextBtn.addEventListener('click', (e) => {
+        nextBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         const currentActive = paginationContainer.querySelector('.pagination-btn.active');
         if (currentActive) {
-            const currentPage = parseInt(currentActive.textContent);
+                const currentPage = parseInt(currentActive.dataset.page || currentActive.textContent);
             if (currentPage < totalPages) showPage(currentPage + 1);
         }
     });
@@ -227,31 +263,9 @@ document.addEventListener('DOMContentLoaded', () => {
         eduObserver.observe(educationGridEl);
     }
 
-    // Filtrado de proyectos
-    const filterBtns = document.querySelectorAll('.filter-btn');
+    // Filtros eliminados: asegurar que todas las cards de proyectos estén activas para paginación
     const proyectoCards = document.querySelectorAll('.proyecto-card');
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.getAttribute('data-filter');
-            
-            // Actualizar botón activo
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            // Filtrar cards
-            proyectoCards.forEach(card => {
-                if (filter === 'all' || card.getAttribute('data-company') === filter) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            // Reiniciar paginación
-            setupPagination('.proyectos-grid', '.proyecto-card', '.proyectos-pagination', 4);
-        });
-    });
+    proyectoCards.forEach(card => { card.dataset.filtered = 'false'; });
 
     // Interceptar enlaces de anclaje para evitar que el hash quede en la URL
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -296,31 +310,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateNavIndicator();
         window.addEventListener('resize', updateNavIndicator);
     }
-    // --- Lógica del botón "Ver más" para Cursos ---
-    const toggleCoursesBtn = document.getElementById('toggle-courses-btn');
-    const educationGrid = document.querySelector('.education-grid');
-
-    if (toggleCoursesBtn && educationGrid) {
-        toggleCoursesBtn.addEventListener('click', () => {
-            educationGrid.classList.toggle('show-all');
-            if (educationGrid.classList.contains('show-all')) {
-                toggleCoursesBtn.textContent = 'Ver menos';
-            } else {
-                toggleCoursesBtn.textContent = 'Ver más';
-            }
-            // After toggling, reveal visible cards with stagger (if not reduced-motion)
-            const cards = Array.from(educationGrid.querySelectorAll('.education-card')).filter(c => getComputedStyle(c).display !== 'none');
-            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduceMotion) {
-                cards.forEach(card => card.classList.add('visible'));
-            } else {
-                cards.forEach((card, i) => {
-                    card.classList.remove('visible');
-                    setTimeout(() => card.classList.add('visible'), 60 + (i * 80));
-                });
-            }
-        });
-    }
+    // --- Paginación minimalista para Educación ---
+    setupPagination('.education-grid', '.education-card', '.education-pagination', 3);
+    // showPage(1) will reveal initial cards via the function's own logic
 
 
     const videoModal = document.getElementById('video-modal');
