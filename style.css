@@ -16,6 +16,14 @@
 
     --header-h: 70px;
     --overlay-bg: rgba(255, 255, 255, 0.6);
+    /* Navbar contrast variables */
+    --navbar-bg-grad-1: rgba(255, 255, 255, 0.98);
+    --navbar-bg-grad-2: rgba(255, 255, 255, 0.95);
+    --navbar-border: rgba(0,0,0,0.06);
+    --navbar-shadow: rgba(0,0,0,0.12);
+    /* Hello bubble background variables */
+    --hello-bg: var(--accent-hot);
+    --hello-border: rgba(0,0,0,0.06);
     --bg-grad-1: #fff7f8;
     --bg-grad-2: #fff1f3;
     --bg-dark-grad-1: #22191b;
@@ -40,6 +48,13 @@ body.dark-mode {
     --bg-glass: rgba(45, 35, 41, 0.5);
     --border-glass: rgba(90, 69, 76, 0.5);
     --overlay-bg: rgba(24, 22, 24, 0.6);
+    /* Navbar contrast variables for dark mode */
+    --navbar-bg-grad-1: rgba(22, 18, 20, 0.92);
+    --navbar-bg-grad-2: rgba(30, 24, 27, 0.85);
+    --navbar-border: rgba(255, 255, 255, 0.06);
+    --navbar-shadow: rgba(0, 0, 0, 0.45);
+    --hello-bg: rgba(240,108,136,0.98);
+    --hello-border: rgba(255,255,255,0.06);
 }
 
 * {
@@ -165,10 +180,11 @@ body.dark-mode .background-layer {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 5%;
-    background-color: var(--bg-glass);
-    border: 1px solid var(--border-glass);
-    backdrop-filter: blur(12px); /* Slightly increased blur */
-    border-radius: 60px; /* More rounded */
+    /* Use a subtle gradient with variable fallbacks for contrast */
+    background: linear-gradient(180deg, var(--navbar-bg-grad-1, var(--bg-glass)), var(--navbar-bg-grad-2, var(--bg-glass)));
+    border: 1px solid var(--navbar-border, var(--border-glass));
+    backdrop-filter: blur(20px) saturate(140%); /* Stronger blur + saturation for separation */
+    border-radius: 60px;
     margin: 20px auto;
     max-width: 1200px;
     width: 90%;
@@ -176,9 +192,19 @@ body.dark-mode .background-layer {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: 0 5px 20px var(--shadow-color);
-    z-index: 100;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 14px 40px var(--navbar-shadow, var(--shadow-color));
+    z-index: 110;
+    transition: background 400ms cubic-bezier(.22,1,.36,1), border-color 300ms ease, box-shadow 300ms ease, transform 200ms ease;
+}
+
+.navbar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.01));
+    pointer-events: none;
+    z-index: -1;
 }
 
 .logo {
@@ -351,23 +377,60 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     align-items: center;
 }
 
+/* Minimal, solid, high-contrast hello bubble */
 .hello-bubble {
     position: relative;
     display: inline-block;
-    padding: 10px 30px 10px 30px;
-    border: 1px solid var(--border-glass); /* Used glass border for consistency */
-    border-radius: 40px; /* More rounded */
+    padding: 12px 36px; /* slightly larger for better presence */
+    border-radius: 44px; /* more pronounced radius */
     margin-bottom: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    /* Neutral glass background: no accent color */
+    background: var(--overlay-bg);
+    border: 1px solid var(--navbar-border);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    text-shadow: none;
+    transform: translateZ(0);
+    transition: transform 180ms cubic-bezier(.22,1,.36,1), box-shadow 180ms ease, opacity 200ms ease;
+    animation: none; /* keep minimal and colorless */
+}
+
+.hello-bubble::after { display: none; }
+
+.hello-bubble:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(0,0,0,0.08);
+}
+
+/* Dark mode variant: keep contrast while honoring theme */
+body.dark-mode .hello-bubble {
+    color: var(--text-dark);
+    /* Use overlay in dark mode to avoid color accents */
+    background: var(--overlay-bg);
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.5);
 }
 
 .hello-bubble img {
     position: absolute;
-    top: -10px;
-    right: -20px;
-    width: 25px;
+    top: -8px;
+    right: -24px;
+    width: 30px;
     height: auto;
-    opacity: 0.5;
+    opacity: 0.95;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.12));
+    transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.hello-bubble:hover img {
+    transform: translateY(-2px) scale(1.05);
+}
+.hello-bubble:focus {
+    outline: 0;
+    box-shadow: 0 0 0 3px var(--navbar-border);
 }
 
 
@@ -2201,4 +2264,14 @@ body.dark-mode .experience-section .experience-inner::before {
     .footer-socials a { font-size: 1.6rem; margin: 0 12px; }
     /* Hide desktop indicator on mobile */
     .nav-indicator { display: none; }
+}
+
+@keyframes helloPulse {
+    0% { transform: translateZ(0) scale(1); }
+    50% { transform: translateZ(0) scale(1.02); }
+    100% { transform: translateZ(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hello-bubble, .hello-bubble img { animation: none; transition: none; }
 }
