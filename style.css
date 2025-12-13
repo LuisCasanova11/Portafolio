@@ -2010,33 +2010,39 @@ body.dark-mode .experience-section .experience-inner::before {
 .cuenta-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 24px; /* More rounded */
-    text-align: center;
-    padding: 30px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Softer initial shadow */
+    border-radius: 20px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 14px;
 }
 
 .cuenta-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15); /* Softer, more diffused shadow */
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+    border-color: var(--accent-soft);
+}
+
+.cuenta-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
 .cuenta-imagen {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 25px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     background-color: var(--bg-section-alt);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border: 4px solid var(--bg-card);
+    border: 3px solid var(--bg-card);
     box-shadow: 0 0 0 1px var(--border-color);
+    flex-shrink: 0;
 }
 
 .cuenta-imagen img {
@@ -2045,43 +2051,60 @@ body.dark-mode .experience-section .experience-inner::before {
     object-fit: cover;
 }
 
-.cuenta-info {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+.cuenta-meta { display: flex; flex-direction: column; }
 
 .cuenta-titulo {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 8px;
+    line-height: 1.2;
 }
 
-.cuenta-categoria {
+.cuenta-handle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.cuenta-descripcion {
     font-size: 0.95rem;
     color: var(--text-secondary);
-    margin-bottom: 25px;
-    flex-grow: 1;
 }
 
-.cuenta-ver-perfil {
-    display: inline-block;
-    background-color: var(--accent-hot);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+.cuenta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.cuenta-ver-perfil:hover {
-    background-color: var(--accent-soft);
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-element);
     color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
+
+.social-btn i { font-size: 1rem; }
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    background: var(--accent-soft);
+    border-color: var(--accent-soft);
+    color: #fff;
+}
+
+/* Variantes por red (solo color de icono cuando no hover) */
+.social-btn.instagram i { color: #E1306C; }
+.social-btn.tiktok i { color: #010101; }
+.social-btn.facebook i { color: #1877F2; }
+.social-btn.linkedin i { color: #0A66C2; }
 
 .cuentas-pagination {
     margin-top: 40px;
