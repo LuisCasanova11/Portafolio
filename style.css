@@ -2563,3 +2563,8 @@ body.dark-mode .videos-section::before {
 .proyectos-section > *,
 .cuentas-section > *,
 .videos-section > * { position: relative; z-index: 1; }
+
+/* Clase para ocultar el navbar al hacer scroll */
+.navbar.scroll-hide {
+    transform: translateX(-50%) translateY(-200%);
+}
