@@ -638,6 +638,7 @@ body.dark-mode .hello-bubble {
 
 @media (max-width: 768px) {
     .hero {
+        padding-top: 150px;
         padding-bottom: 6rem;
     }
 
